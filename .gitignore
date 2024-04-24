@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# *.ipynb
+*.pth
+*.pt
+*.tar
+*.out
+*.log
+*.txt
+
+# Ignore VS Code configuration directory
+.vscode/
+
+# Ignore model outputs
+outputs/
+outputs_refactor/
+data/
+models/*
+!models/README.md
+dist/
