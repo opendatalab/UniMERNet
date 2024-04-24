@@ -1,15 +1,15 @@
 <div align="center">
 <h1>UniMERNet: A Universal Network for Real-World Mathematical Expression Recognition</h1>
 
-[![Paper](https://arxiv.org/abs/2404.15254)]()
-[![Hugging Face Spaces](https://huggingface.co/wanderkid/unimernet)]()
+[![Paper](https://img.shields.io/badge/Paper-arxiv)](https://arxiv.org/abs/2404.15254)
+[![Hugging Face Spaces](https://img.shields.io/badge/🤗%20Hugging%20Face-Community%20Space-blue)](https://huggingface.co/wanderkid/unimernet)
 
 </div>
 
 Welcome to the official repository of UniMERNet, a solution that converts images of mathematical expressions into LaTeX, suitable for a wide range of real-world scenarios.
 
 ## News
-**2024.4.24** 🎉🎉  Paper now available on [ArXiv](https://arxiv.org/abs/2404.15254).
+**2024.4.24** 🎉🎉  Paper now available on [ArXiv](https://arxiv.org/abs/2404.15254).  
 **2024.4.24** 🎉🎉  Inference code and checkpoints have been released. 
 
 
