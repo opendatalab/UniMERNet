@@ -9,7 +9,7 @@
 Welcome to UniMERNet's official repository, providing a solution for converting images of mathematical expressions into LaTeX, suitable for diverse real-world scenarios
 
 ## News
-**2024.4.24** 🎉🎉   Paper available on [ArXiv](https://arxiv.org/abs/xxx).
+**2024.4.24** 🎉🎉   Paper available on [ArXiv](https://arxiv.org/abs/2404.15254).
 
 ## TODO
 
@@ -29,7 +29,14 @@ Welcome to UniMERNet's official repository, providing a solution for converting 
 ## Citation
 If you find our models / code / papers useful in your research, please consider giving ⭐ and citations 📝, thx :)
 ```bibtex
-
+@misc{wang2024unimernet,
+      title={UniMERNet: A Universal Network for Real-World Mathematical Expression Recognition}, 
+      author={Bin Wang and Zhuangcheng Gu and Chao Xu and Bo Zhang and Botian Shi and Conghui He},
+      year={2024},
+      eprint={2404.15254},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
 ```
 
 ## Acknowledgement
