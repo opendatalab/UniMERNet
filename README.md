@@ -43,7 +43,7 @@ conda create -n unimernet python=3.10
 
 conda activate unimernet
 
-pip install unimernet
+pip install --upgrade unimernet
 ```
 
 ### Running UniMERNet
