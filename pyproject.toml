@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "unimernet"
-version = "0.0.4"
+version = "0.0.9"
 description = 'UniMERNet: A Universal Network for Real-World Mathematical Expression Recognition'
 requires-python = ">=3.9"
 authors = ["Bin Wang <ictwangbin@gmail.com>"]
@@ -11,6 +11,9 @@ keywords = ["MER", "latex", "markdown", "pdf"]
 include = [
     "train.py",
     "test.py",
+    "demo.py",
+    "unimernet_app.py",
+    "run_unimernet_app.py",
 ]
 
 [tool.poetry.dependencies]
@@ -37,10 +40,15 @@ rapidfuzz = "^3.8.1"
 jupyterlab = "^4.1.6"
 tabulate = "^0.9.0"
 nltk = "^3.8.1"
+streamlit = "^1.33.0"
+pypdfium2 = "^4.29.0"
+pdf2image = "^1.17.0"
+streamlit_drawable_canvas = "^0.9.3"
 
 [tool.poetry.scripts]
 unimernet = "demo:main"
-unimernet_gui = "unimer_app:run_app"
+unimernet_gui = "run_unimernet_app:run_app"
+Unimernet_eval = "test:main"
 
 [build-system]
 requires = ["poetry-core"]
