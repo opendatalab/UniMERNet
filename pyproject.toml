@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "unimernet"
-version = "0.0.9"
+version = "0.1.0"
 description = 'UniMERNet: A Universal Network for Real-World Mathematical Expression Recognition'
 requires-python = ">=3.9"
 authors = ["Bin Wang <ictwangbin@gmail.com>"]
@@ -27,7 +27,7 @@ pandas = "^2.2.2"
 iopath = "^0.1.10"
 timm = "^0.9.16"
 opencv-python = "^4.9.0"
-transformers = "^4.40.0"
+transformers = "4.40.0"
 fairscale = "^0.4.13"
 ftfy = "^6.2.0"
 albumentations = "^1.4.4"
@@ -48,7 +48,7 @@ streamlit_drawable_canvas = "^0.9.3"
 [tool.poetry.scripts]
 unimernet = "demo:main"
 unimernet_gui = "run_unimernet_app:run_app"
-Unimernet_eval = "test:main"
+unimernet_eval = "test:main"
 
 [build-system]
 requires = ["poetry-core"]

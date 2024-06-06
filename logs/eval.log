@@ -1,0 +1,45 @@
+CustomVisionEncoderDecoderModel init
+CustomMBartForCausalLM init
+CustomMBartDecoder init
+arch_name:unimernet
+model_type:unimernet
+checkpoint:
+====================================================================================================
+Device:cuda
+Load model: 23.643s
+len_gts:6762, len_preds=6762
+norm_gts[0]:S\sim\tilde{\psi}Q_{o}\tilde{\psi}+g_{s}^{1/2}\tilde{\psi}^{3}+\tilde{\phi}Q_{c}\tilde{\phi}+g_{s}\tilde{\phi}^{3}+\tilde{\phi}B(g_{s}^{1/2}\tilde{\psi})+\cdots.
+norm_preds[0]:S\sim\tilde{\psi}Q_{o}\tilde{\psi}+g_{s}^{1/2}\tilde{\psi}^{3}+\tilde{\phi}Q_{c}\tilde{\phi}+g_{s}\tilde{\phi}^{3}+\tilde{\phi}B(g_{s}^{1/2}\tilde{\psi})+\cdots.
+Evaluation Set:Simple Print Expression(SPE)
+Inference Time: 690.366847038269s
+  bleu ⬆    edit ⬇
+--------  --------
+0.917711  0.058556
+====================================================================================================
+len_gts:5921, len_preds=5921
+norm_gts[0]:\begin{array}{r l}{\mathcal{L}(\{\mathbf{u,v,w,z,x}\},\{\boldsymbol{\kappa,\lambda,\mu,\nu}\})=\frac{1}{2}\|\mathbf{y-Cu}\|_{2}^{2}}&{+\tau_{1}\|\mathbf{v}\|_{1}+\tau_{2}\|\mathbf{w}\|_{1}}\\ &{+\frac{\rho_{1}}{2}\|\mathbf{Ax-u}\|_{2}^{2}+\boldsymbol{\kappa}^{\top}(\mathbf{Ax-u})}\\ &{+\frac{\rho_{2}}{2}\|\mathbf{x-v}\|_{2}^{2}+\boldsymbol{\lambda}^{\top}(\mathbf{x-v})}\\ &{+\frac{\rho_{3}}{2}\|\mathbf{Dx-w}\|_{2}^{2}+\boldsymbol{\mu}^{\top}(\mathbf{Dx-w})}\\ &{+\frac{\rho_{4}}{2}\|\mathbf{x-z}\|_{2}^{2}+\boldsymbol{\nu}^{\top}(\mathbf{x-z})}\\ &{+\mathcal{I}_{+}(\mathbf{z})}\end{array}
+norm_preds[0]:\begin{array}{r l}{\mathcal{L}(\{\mathbf{u},\mathbf{v},\mathbf{w},\mathbf{z},\mathbf{x}\},\{\kappa,\lambda,\mu,\nu\})=\frac{1}{2}\|\mathbf{y}-\mathbf{Cu}\|_{2}^{2}}&{+\tau_{1}\|\mathbf{v}\|_{1}+\tau_{2}\|\mathbf{w}\|_{1}}\\ &{+\frac{\rho_{1}}{2}\|\mathbf{Ax}-\mathbf{u}\|_{2}^{2}+\kappa^{\top}(\mathbf{Ax}-\mathbf{u})}\\ &{+\frac{\rho_{2}}{2}\|\mathbf{x}-\mathbf{v}\|_{2}^{2}+\boldsymbol{\lambda}^{\top}(\mathbf{x}-\mathbf{v})}\\ &{+\frac{\rho_{3}}{2}\|\mathbf{Dx}-\mathbf{w}\|_{2}^{2}+\mu^{\top}(\mathbf{Dx}-\mathbf{w})}\\ &{+\frac{\rho_{4}}{2}\|\mathbf{x}-\mathbf{z}\|_{2}^{2}+\nu^{\top}(\mathbf{x}-\mathbf{z})}\\ &{+\mathcal{I}_{+}(\mathbf{z})}\end{array}
+Evaluation Set:Complex Print Expression(CPE)
+Inference Time: 2109.273235321045s
+  bleu ⬆    edit ⬇
+--------  --------
+0.913843  0.057546
+====================================================================================================
+len_gts:4742, len_preds=4742
+norm_gts[0]:F_{i}[z](x,y)=f_{i}(x,y,z)\ i=1,\ldots,n,
+norm_preds[0]:F_{i}[z](x,y)=f_{i}(x,y,z)\ i=1,\ldots,n,
+Evaluation Set:Screen Capture Expression(SCE)
+Inference Time: 2425.0937654972076s
+  bleu ⬆    edit ⬇
+--------  --------
+0.617196   0.22953
+====================================================================================================
+len_gts:6332, len_preds=6332
+norm_gts[0]:b_{n+1}-b_{n}=-1
+norm_preds[0]:b_{n+1}-b_{n}=-1
+Evaluation Set:Handwritten Expression(HWE)
+Inference Time: 2543.7626719474792s
+  bleu ⬆     edit ⬇
+--------  ---------
+0.920905  0.0546271
+====================================================================================================
