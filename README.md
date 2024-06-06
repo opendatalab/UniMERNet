@@ -10,7 +10,7 @@
 Welcome to the official repository of UniMERNet, a solution that converts images of mathematical expressions into LaTeX, suitable for a wide range of real-world scenarios.
 
 ## News 🚀🚀🚀
-**2024.06.06** 🎉🎉  Open-sourced evaluation code for UniMER dataset.
+**2024.06.06** 🎉🎉  Open-sourced evaluation code for UniMER dataset.  
 **2024.05.06** 🎉🎉  Open-sourced UniMER dataset, including UniMER-1M for model training and UniMER-Test for MER evaluation.  
 **2024.05.06** 🎉🎉  Added Streamlit formula recognition demo and provided local deployment App.  
 **2024.04.24** 🎉🎉  Paper now available on [ArXiv](https://arxiv.org/abs/2404.15254).  
