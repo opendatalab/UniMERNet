@@ -10,9 +10,10 @@
 Welcome to the official repository of UniMERNet, a solution that converts images of mathematical expressions into LaTeX, suitable for a wide range of real-world scenarios.
 
 ## News 🚀🚀🚀
+**2024.07.21** 🎉🎉  Add Math Formula Detection (MFD) Tutorial based on [PDF-Extract-Kit](https://github.com/opendatalab/PDF-Extract-Kit) MFD model.  
 **2024.06.06** 🎉🎉  Open-sourced evaluation code for UniMER dataset.  
 **2024.05.06** 🎉🎉  Open-sourced UniMER dataset, including UniMER-1M for model training and UniMER-Test for MER evaluation.  
-**2024.05.06** 🎉🎉  Added Streamlit formula recognition demo and provided local deployment App.  
+**2024.05.06** 🎉🎉  Add Streamlit formula recognition demo and provided local deployment App.  
 **2024.04.24** 🎉🎉  Paper now available on [ArXiv](https://arxiv.org/abs/2404.15254).  
 **2024.04.24** 🎉🎉  Inference code and checkpoints have been released. 
 
@@ -117,6 +118,12 @@ The UniMER dataset is a specialized collection curated to advance the field of M
 
 ### Dataset Download
 You can download the dataset from [OpenDataLab](https://opendatalab.com/OpenDataLab/UniMER-Dataset) (recommended for users in China) or [HuggingFace](https://huggingface.co/datasets/wanderkid/UniMER_Dataset).
+
+
+## Math Formula Detection Tutorial
+
+The prerequisite for formula recognition is to detect the areas within PDF or webpage screenshots where formulas are located. The [PDF-Extract-Kit](https://github.com/opendatalab/PDF-Extract-Kit) includes a powerful model for detecting formulas. If you wish to perform both formula detection and recognition by yourself, you can refer to the [Formula Detection Tutorial](./MFD/README.md) for guidance on deploying and using the formula detection model.
+
 
 ## TODO
 
