@@ -3,7 +3,10 @@
 
 
 [[ Paper ]](https://arxiv.org/abs/2404.15254) [[ Website ]](https://github.com/opendatalab/UniMERNet/tree/main) [[ Dataset (OpenDataLab)]](https://opendatalab.com/OpenDataLab/UniMER-Dataset) [[ Dataset (Hugging Face) ]](https://huggingface.co/datasets/wanderkid/UniMER_Dataset)
-[[Models (Hugging Face)]](https://huggingface.co/wanderkid/unimernet)
+
+
+[[Models 🤗(Hugging Face)]](https://huggingface.co/wanderkid/unimernet)
+[[Models <img src="./assets/images/modelscope_logo.png" width="20px">(ModelScope)]](https://www.modelscope.cn/models/wanderkid/UniMERNet/)
 
 </div>
 
@@ -36,6 +39,10 @@ cd UniMERNet/models
 # Download the model and tokenizer individually or use git-lfs
 git lfs install
 git clone https://huggingface.co/wanderkid/unimernet
+
+# you can also download the model from ModelScope
+git clone https://www.modelscope.cn/wanderkid/UniMERNet.git
+
 ```
 
 ### Installation
