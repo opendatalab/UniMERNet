@@ -6,7 +6,7 @@
 
 
 [[Models 🤗(Hugging Face)]](https://huggingface.co/wanderkid/unimernet)
-[[Models <img src="./assets/images/modelscope_logo.png" width="20px">(ModelScope)]](https://www.modelscope.cn/models/wanderkid/UniMERNet/)
+[[Models <img src="./asset/images/modelscope_logo.png" width="20px">(ModelScope)]](https://www.modelscope.cn/models/wanderkid/UniMERNet/)
 
 </div>
 
