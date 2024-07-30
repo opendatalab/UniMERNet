@@ -53,6 +53,8 @@ conda create -n unimernet python=3.10
 conda activate unimernet
 
 pip install --upgrade unimernet
+
+pip install "unimernet[full]"
 ```
 
 ### Running UniMERNet
@@ -62,7 +64,7 @@ pip install --upgrade unimernet
     ```bash
     unimernet_gui
     ```
-    Ensure you have the latest version of UniMERNet installed (`pip install --upgrade unimernet`) for the streamlit GUI application.
+    Ensure you have the latest version of UniMERNet installed (`pip install --upgrade unimernet & pip install "unimernet[full]"`) for the streamlit GUI application.
 
 2. **Command-line Demo**: Predict LaTeX code from an image.
 
