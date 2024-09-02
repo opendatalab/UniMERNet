@@ -2,11 +2,11 @@ model:
   arch: unimernet
   model_type: unimernet
   model_config:
-    model_name: ./models/unimernet
+    model_name: ./configs/config_unimernet/unimernet_base
     max_seq_len: 1536
-    length_aware: True
+
   load_pretrained: True
-  pretrained: ./models/unimernet/pytorch_model.bin
+  pretrained: './checkpoints/unimernet_base.pth'
   tokenizer_config:
     path: ./models/unimernet
 
