@@ -1,23 +1,45 @@
-#  Character Detection Matching (CDM)
+<div align="center">
 
-## Demo
+English | [简体中文](./README-CN.md)
 
-CDM: A Reliable Metric for Fair and Accurate Formula Recognition
+<h1>CDM: A Reliable Metric for Fair and Accurate Formula Recognition</h1>
 
-![demo](assets/demo/demo.png)
+[[ Paper ]](https://arxiv.org/pdf/2409.03643) [[ Website ]](https://github.com/opendatalab/UniMERNet/tree/main/cdm)
+[[Demo 🤗(Hugging Face)]](https://huggingface.co/spaces/opendatalab/CDM-Demo)
 
-Compair with BLEU and ExpRate:
+</div>
 
-![demo](assets/demo/cases.png)
 
-## Installation Guide
+# Overview
+
+CDM's architecture and comparison with other metrics:
+
+<div align="center">
+    <img src="assets/demo/demo.png" alt="Overview" width="42.2%" style="margin-right: 2px">
+    <img src="assets/demo/cases.png" alt="Demo" width="52%">
+</div>
+
+# 
+
+# Usage
+
+## Try Online Demo
+
+Try CDM on our online demo: [(Hugging Face)🤗](https://huggingface.co/spaces/opendatalab/CDM-Demo)
+
+## Install CMD Locally
+
+Given CDM's complex environment dependencies, we recommend trying it on Linux systems.
+
+## prepare environment
 
 Nodejs, imagemagic, pdflatex are requried packages when render pdf files and convert them to images, here are installation guides.
 
-### install nodejs
+### step.1 install nodejs
 
-download the package from [offical website](https://registry.npmmirror.com/binary.html?path=node/latest-v16.x/), and then run these commands.
 ```
+wget https://registry.npmmirror.com/-/binary/node/latest-v16.x/node-v16.13.1-linux-x64.tar.gz
+
 tar -xvf node-v16.13.1-linux-x64.tar.gz
 
 mv node-v16.13.1-linux-x64/* /usr/local/nodejs/
@@ -29,7 +51,7 @@ ln -s /usr/local/nodejs/bin/npm /usr/local/bin
 node -v
 ```
 
-### install imagemagic
+### step.2 install imagemagic
 
 the version of imagemagic installed by `apt-gt` usually be 6.x, so we also install it from source code.
 ```
@@ -48,7 +70,7 @@ sudo ldconfig /usr/local/lib
 convert --version
 ```
 
-### install latexpdf
+### step.3 install latexpdf
 
 ```
 apt-get update
@@ -56,16 +78,16 @@ apt-get update
 sudo apt-get install texlive-full
 ```
 
-### install python requriements
+### step.4 install python requriements
 
 ```
 pip install -r requirements.txt
 ```
 
 
-## Usage
+## Use CDM Locally
 
-Should the installation go well, you may now enjoy the evaluation pipeline.
+Should the installation goes well, you may now use CDM to evaluate your formula recognition results.
 
 ### 1. batch evaluation 
 
@@ -90,7 +112,7 @@ the format of input json like this:
 ]
 ```
 
-### 2. run a gradio demo
+### 2. launch a gradio demo
 
 ```
 python app.py
