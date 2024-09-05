@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "unimernet"
-version = "0.1.6"
+version = "0.2.0"
 description = 'UniMERNet: A Universal Network for Real-World Mathematical Expression Recognition'
 authors = ["Bin Wang <ictwangbin@gmail.com>"]
 readme = "README.md"
@@ -25,9 +25,10 @@ matplotlib = "^3.8.4"
 iopath = "^0.1.9"
 timm = "^0.9.16"
 opencv-python = "^4.6.0"
-transformers = "4.40.0"
+transformers = "4.42.4"
 fairscale = "^0.4.13"
-ftfy = "^6.2.0"
+# ftfy = "^6.2.0"
+ftfy = {version = "^6.2.0", python = ">=3.10,<4.0"}
 albumentations = "^1.4.4"
 wand = "^0.6.13"
 eva-decord = "^0.6.1"

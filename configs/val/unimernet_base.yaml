@@ -2,13 +2,13 @@ model:
   arch: unimernet
   model_type: unimernet
   model_config:
-    model_name: ./configs/config_unimernet/unimernet_base
+    model_name: ./models/unimernet_base
     max_seq_len: 1536
 
 
   load_pretrained: False
   load_finetuned: True
-  finetuned: './checkpoints/unimernet_base.pth'
+  finetuned: './models/unimernet_base.pth'
 
 datasets:
 

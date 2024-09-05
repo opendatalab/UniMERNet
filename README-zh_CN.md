@@ -7,15 +7,15 @@
 
 [[ 论文 ]](https://arxiv.org/abs/2404.15254) [[ 网站 ]](https://github.com/opendatalab/UniMERNet/tree/main) [[ 数据集 (OpenDataLab)]](https://opendatalab.com/OpenDataLab/UniMER-Dataset) [[ 数据集 (Hugging Face) ]](https://huggingface.co/datasets/wanderkid/UniMER_Dataset)
 
-[[模型 🤗(Hugging Face)]](https://huggingface.co/wanderkid/unimernet)
-[[模型 <img src="./asset/images/modelscope_logo.png" width="20px">(ModelScope)]](https://www.modelscope.cn/models/wanderkid/)
+[[模型 🤗(Hugging Face)]](https://huggingface.co/wanderkid/unimernet_base)
+[[模型 <img src="./asset/images/modelscope_logo.png" width="20px">(ModelScope)]](https://www.modelscope.cn/models/wanderkid/unimernet_base)
 
 </div>
 
 欢迎来到 UniMERNet 的官方仓库，这是一个将数学表达式图像转换为 LaTeX 的解决方案，适用于各种真实世界场景。
 
 ## 新闻 🚀🚀🚀
-**2024.09.05** 🎉🎉  UniMERNet 算法版本更新，新版本设计更小网络结构，速度更快，精度基本保持不变，具体见最新版本论文。  
+**2024.09.06** 🎉🎉  UniMERNet 算法版本更新，新版本设计更小网络结构，速度更快，精度基本保持不变，具体见最新版本论文[UniMERNet](xxx)。  
 **2024.07.21** 🎉🎉  基于 [PDF-Extract-Kit](https://github.com/opendatalab/PDF-Extract-Kit) MFD 模型，添加了数学公式检测 (MFD) 教程。  
 **2024.06.06** 🎉🎉  开源了 UniMER 数据集的评估代码。  
 **2024.05.06** 🎉🎉  开源了 UniMER 数据集，包括用于模型训练的 UniMER-1M 和用于 MER 评估的 UniMER-Test。  
@@ -51,15 +51,26 @@ git clone https://www.modelscope.cn/wanderkid/unimernet_tiny.git
 
 ### 安装
 
+> 新建一个干净的conda环境
+
 ``` bash 
 conda create -n unimernet python=3.10
 
 conda activate unimernet
+```
 
+> 安装方式1：直接 pip install安装，适合一般用户
+```bash
 pip install --upgrade unimernet
 
 pip install "unimernet[full]"
 ```
+
+> 安装方式2：本地安装，适合开发者
+```bash
+pip install -e ."[full]"
+```
+
 
 ### 运行 UniMERNet
 
