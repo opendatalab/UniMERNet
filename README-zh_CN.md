@@ -8,14 +8,14 @@
 [[ 论文 ]](https://arxiv.org/abs/2404.15254) [[ 网站 ]](https://github.com/opendatalab/UniMERNet/tree/main) [[ 数据集 (OpenDataLab)]](https://opendatalab.com/OpenDataLab/UniMER-Dataset) [[ 数据集 (Hugging Face) ]](https://huggingface.co/datasets/wanderkid/UniMER_Dataset)
 
 [[模型 🤗(Hugging Face)]](https://huggingface.co/wanderkid/unimernet)
-[[模型 <img src="./asset/images/modelscope_logo.png" width="20px">(ModelScope)]](https://www.modelscope.cn/models/wanderkid/UniMERNet/)
+[[模型 <img src="./asset/images/modelscope_logo.png" width="20px">(ModelScope)]](https://www.modelscope.cn/models/wanderkid/)
 
 </div>
 
 欢迎来到 UniMERNet 的官方仓库，这是一个将数学表达式图像转换为 LaTeX 的解决方案，适用于各种真实世界场景。
 
 ## 新闻 🚀🚀🚀
-**2024.09.03** 🎉🎉  UniMERNet 算法版本更新，新版本设计更小网络结构，速度更快，精度基本保持不变，具体见最新版本论文。
+**2024.09.05** 🎉🎉  UniMERNet 算法版本更新，新版本设计更小网络结构，速度更快，精度基本保持不变，具体见最新版本论文。  
 **2024.07.21** 🎉🎉  基于 [PDF-Extract-Kit](https://github.com/opendatalab/PDF-Extract-Kit) MFD 模型，添加了数学公式检测 (MFD) 教程。  
 **2024.06.06** 🎉🎉  开源了 UniMER 数据集的评估代码。  
 **2024.05.06** 🎉🎉  开源了 UniMER 数据集，包括用于模型训练的 UniMER-1M 和用于 MER 评估的 UniMER-Test。  
@@ -86,7 +86,7 @@ pip install "unimernet[full]"
 
 > UniMERNet 在识别真实世界数学表达式方面显著优于主流模型，在简单打印表达式（SPE）、复杂打印表达式（CPE）、屏幕截图表达式（SCE）和手写表达式（HWE）方面表现出色，如 BLEU 分数评估所示。
 
-![BLEU](./asset/papers/fig1_bleu.png)
+![BLEU](./asset/papers/fig1_bleu.jpg)
 
 ## 不同方法的可视化结果。
 
@@ -171,7 +171,7 @@ UniMER 数据集是一个专门收集的集合，旨在推进数学表达式识�
 
 
 ## 引用
-如果你在研究中发现我们的模型/代码/论文有用，请考虑给我们一个星 ⭐ 并引用我们的工作 📝，谢谢 :)
+如果你在研究中发现我们的模型/代码/论文有用，欢迎给我们项目点个 ⭐ 并引用我们的工作 📝，谢谢 :)
 ```bibtex
 @misc{wang2024unimernet,
       title={UniMERNet: A Universal Network for Real-World Mathematical Expression Recognition}, 

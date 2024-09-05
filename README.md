@@ -20,7 +20,7 @@ English | [简体中文](./README-zh_CN.md)
 Welcome to the official repository of UniMERNet, a solution that converts images of mathematical expressions into LaTeX, suitable for a wide range of real-world scenarios.
 
 ## News 🚀🚀🚀
-**2024.09.03** 🎉🎉   Major update to the UniMERNet algorithm. This update includes enhanced algorithm details (refer to the latest version of the paper) and open-sourced training code.  
+**2024.09.05** 🎉🎉   Major update to the UniMERNet algorithm. This update includes enhanced algorithm details (refer to the latest version of the paper) and open-sourced training code.  
 **2024.07.21** 🎉🎉  Add Math Formula Detection (MFD) Tutorial based on [PDF-Extract-Kit](https://github.com/opendatalab/PDF-Extract-Kit) MFD model.  
 **2024.06.06** 🎉🎉  Open-sourced evaluation code for UniMER dataset.  
 **2024.05.06** 🎉🎉  Open-sourced UniMER dataset, including UniMER-1M for model training and UniMER-Test for MER evaluation.  
@@ -91,7 +91,7 @@ pip install "unimernet[full]"
 
 > UniMERNet significantly outperforms mainstream models in recognizing real-world mathematical expressions, demonstrating superior performance across Simple Printed Expressions (SPE), Complex Printed Expressions (CPE), Screen-Captured Expressions (SCE), and Handwritten Expressions (HWE), as evidenced by the comparative BLEU Score evaluation.  
 
-![BLEU](./asset/papers/fig1_bleu.png)
+![BLEU](./asset/papers/fig1_bleu.jpg)
 
 
 
