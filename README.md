@@ -12,15 +12,15 @@ English | [简体中文](./README-zh_CN.md)
 [[ Paper ]](https://arxiv.org/abs/2404.15254) [[ Website ]](https://github.com/opendatalab/UniMERNet/tree/main) [[ Dataset (OpenDataLab)]](https://opendatalab.com/OpenDataLab/UniMER-Dataset) [[ Dataset (Hugging Face) ]](https://huggingface.co/datasets/wanderkid/UniMER_Dataset)
 
 
-[[Models 🤗(Hugging Face)]](https://huggingface.co/wanderkid/unimernet)
-[[Models <img src="./asset/images/modelscope_logo.png" width="20px">(ModelScope)]](https://www.modelscope.cn/models/wanderkid/UniMERNet/)
+[[Models 🤗(Hugging Face)]](https://huggingface.co/wanderkid/unimernet_base)
+[[Models <img src="./asset/images/modelscope_logo.png" width="20px">(ModelScope)]](https://www.modelscope.cn/models/wanderkid/unimernet_base)
 
 </div>
 
 Welcome to the official repository of UniMERNet, a solution that converts images of mathematical expressions into LaTeX, suitable for a wide range of real-world scenarios.
 
 ## News 🚀🚀🚀
-**2024.09.05** 🎉🎉   Major update to the UniMERNet algorithm. This update includes enhanced algorithm details (refer to the latest version of the paper) and open-sourced training code.  
+**2024.09.06** 🎉🎉   Major update to the UniMERNet algorithm. This update includes enhanced algorithm details (refer to the latest version of the paper) and open-sourced training code.  
 **2024.07.21** 🎉🎉  Add Math Formula Detection (MFD) Tutorial based on [PDF-Extract-Kit](https://github.com/opendatalab/PDF-Extract-Kit) MFD model.  
 **2024.06.06** 🎉🎉  Open-sourced evaluation code for UniMER dataset.  
 **2024.05.06** 🎉🎉  Open-sourced UniMER dataset, including UniMER-1M for model training and UniMER-Test for MER evaluation.  
@@ -46,24 +46,42 @@ git clone https://github.com/opendatalab/UniMERNet.git
 cd UniMERNet/models
 # Download the model and tokenizer individually or use git-lfs
 git lfs install
-git clone https://huggingface.co/wanderkid/unimernet
+git clone https://huggingface.co/wanderkid/unimernet_base  # 1.3GB  
+git clone https://huggingface.co/wanderkid/unimernet_small # 773MB  
+git clone https://huggingface.co/wanderkid/unimernet_tiny  # 441MB  
 
 # you can also download the model from ModelScope
-git clone https://www.modelscope.cn/wanderkid/UniMERNet.git
+git clone https://www.modelscope.cn/wanderkid/unimernet_base.git
+git clone https://www.modelscope.cn/wanderkid/unimernet_small.git
+git clone https://www.modelscope.cn/wanderkid/unimernet_tiny.git
 
 ```
 
 ### Installation
 
-``` bash 
+> Create a clean Conda environment
+
+```bash
 conda create -n unimernet python=3.10
-
 conda activate unimernet
+```
 
+> Method 1: Install via pip (recommended for general users)
+
+```bash
 pip install --upgrade unimernet
-
 pip install "unimernet[full]"
 ```
+
+> Method 2: Local installation (recommended for developers)
+
+```bash
+pip install -e ."[full]"
+```
+
+
+
+
 
 ### Running UniMERNet
 
@@ -174,10 +192,10 @@ The prerequisite for formula recognition is to detect the areas within PDF or we
 
 ## TODO
 
-- [x] Release inference code and checkpoints of UniMERNet.
-- [x] Release UniMER-1M and UniMER-Test.
-- [x] Open-source the Streamlit formula recognition GUI application. 
-- [ ] Release the training code for UniMERNet.
+[✅] Release inference code and checkpoints of UniMERNet.
+[✅] Release UniMER-1M and UniMER-Test.
+[✅] Open-source the Streamlit formula recognition GUI application. 
+[✅] Release the training code for UniMERNet.
 
 ## Citation
 If you find our models / code / papers useful in your research, please consider giving us a star ⭐ and citing our work 📝, thank you :)
