@@ -192,10 +192,10 @@ The prerequisite for formula recognition is to detect the areas within PDF or we
 
 ## TODO
 
-[✅] Release inference code and checkpoints of UniMERNet.
-[✅] Release UniMER-1M and UniMER-Test.
-[✅] Open-source the Streamlit formula recognition GUI application. 
-[✅] Release the training code for UniMERNet.
+[✅] Release inference code and checkpoints of UniMERNet.  
+[✅] Release UniMER-1M and UniMER-Test.  
+[✅] Open-source the Streamlit formula recognition GUI application.   
+[✅] Release the training code for UniMERNet.  
 
 ## Citation
 If you find our models / code / papers useful in your research, please consider giving us a star ⭐ and citing our work 📝, thank you :)
