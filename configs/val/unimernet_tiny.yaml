@@ -28,8 +28,8 @@ datasets:
 
     build_info:
       # unimath_train
-      images: # path to UniMath1M/train/unimath_train
-      annotation: # path to /UniMath1M/train/unimath_train.txt
+      images: ./data/UniMath1M/train/unimath_train
+      annotation: ./data/UniMath1M/train/unimath_train.txt
       
   formula_rec_eval:
     vis_processor:
@@ -44,8 +44,8 @@ datasets:
         max_words: 1536
 
     build_info:
-      images: # path to /UniMER_Dataset/UniMER-Test/cpe
-      annotation: # path to /UniMER_Dataset/UniMER-Test/cpe.txt
+      images: ./data/UniMER-Test/cpe
+      annotation: ./data/UniMER-Test/cpe.txt
 
 run:
   runner: runner_iter
@@ -58,7 +58,7 @@ run:
   weight_decay: 0.05
   batch_size_train: 8
   batch_size_eval: 8
-  accum_grad_iters: 2
+  accum_grad_iters: 1
   num_workers: 8
   warmup_steps: 5000
   iters_per_inner_epoch: 20000

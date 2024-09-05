@@ -26,8 +26,8 @@ datasets:
 
     build_info:
       # unimath_train
-      images: # Path to unimath_train
-      annotation: # Path to unimath_train.txt
+      images: ./data/UniMath1M/train/unimath_train
+      annotation: ./data/UniMath1M/train/unimath_train.txt
       
   formula_rec_eval:
     vis_processor:
@@ -42,8 +42,8 @@ datasets:
         max_words: 1536
 
     build_info:
-      images: # Path to UniMER-Test : such as /UniMER-Test/cpe
-      annotation: # Path to UniMER-Test : such as /UniMER-Test/cpe.txt
+      images: ./data/UniMER-Test/cpe
+      annotation: ./data/UniMER-Test/cpe.txt
 
 run:
   runner: runner_iter
