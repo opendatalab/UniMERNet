@@ -211,6 +211,16 @@ If you find our models / code / papers useful in your research, please consider 
       archivePrefix={arXiv},
       primaryClass={cs.CV}
 }
+
+@misc{wang2024cdmreliablemetricfair,
+      title={CDM: A Reliable Metric for Fair and Accurate Formula Recognition Evaluation}, 
+      author={Bin Wang and Fan Wu and Linke Ouyang and Zhuangcheng Gu and Rui Zhang and Renqiu Xia and Bo Zhang and Conghui He},
+      year={2024},
+      eprint={2409.03643},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2409.03643}, 
+}
 ```
 
 ## Acknowledgements
