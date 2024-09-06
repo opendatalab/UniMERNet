@@ -203,13 +203,14 @@ The prerequisite for formula recognition is to detect the areas within PDF or we
 ## Citation
 If you find our models / code / papers useful in your research, please consider giving us a star ⭐ and citing our work 📝, thank you :)
 ```bibtex
-@misc{wang2024unimernet,
+@misc{wang2024unimernetuniversalnetworkrealworld,
       title={UniMERNet: A Universal Network for Real-World Mathematical Expression Recognition}, 
-      author={Bin Wang and Zhuangcheng Gu and Chao Xu and Bo Zhang and Botian Shi and Conghui He},
+      author={Bin Wang and Zhuangcheng Gu and Guang Liang and Chao Xu and Bo Zhang and Botian Shi and Conghui He},
       year={2024},
       eprint={2404.15254},
       archivePrefix={arXiv},
-      primaryClass={cs.CV}
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2404.15254}, 
 }
 
 @misc{wang2024cdmreliablemetricfair,
