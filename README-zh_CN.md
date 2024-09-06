@@ -10,12 +10,15 @@
 [[模型 🤗(Hugging Face)]](https://huggingface.co/wanderkid/unimernet_base)
 [[模型 <img src="./asset/images/modelscope_logo.png" width="20px">(ModelScope)]](https://www.modelscope.cn/models/wanderkid/unimernet_base)
 
+🔥🔥 [CDM: 一种公平、准确的可信公式识别评测指标](https://github.com/opendatalab/UniMERNet/tree/main/cdm)
+
 </div>
 
 欢迎来到 UniMERNet 的官方仓库，这是一个将数学表达式图像转换为 LaTeX 的解决方案，适用于各种真实世界场景。
 
 ## 新闻 🚀🚀🚀
-**2024.09.06** 🎉🎉  UniMERNet 算法版本更新，新版本设计更小网络结构，速度更快，精度基本保持不变，具体见最新版本论文[UniMERNet](xxx)。  
+**2024.09.06** 🎉🎉  <font color="red">UniMERNet 版本更新，训练代码开源，新版本模型更小，速度更快。具体见最新版本论文[UniMERNet](https://arxiv.org/abs/2404.15254)。</font>    
+**2024.09.06** 🎉🎉  <font color="red">提出公式识别新指标[CDM](https://github.com/opendatalab/UniMERNet/tree/main/cdm)，相比于BLEU/EditDistance，CDM评测得分更加直观，准确，可以公平对比不同模型性能，不受公式多样性表达影响。</font>  
 **2024.07.21** 🎉🎉  基于 [PDF-Extract-Kit](https://github.com/opendatalab/PDF-Extract-Kit) MFD 模型，添加了数学公式检测 (MFD) 教程。  
 **2024.06.06** 🎉🎉  开源了 UniMER 数据集的评估代码。  
 **2024.05.06** 🎉🎉  开源了 UniMER 数据集，包括用于模型训练的 UniMER-1M 和用于 MER 评估的 UniMER-Test。  
@@ -184,13 +187,24 @@ UniMER 数据集是一个专门收集的集合，旨在推进数学表达式识�
 ## 引用
 如果你在研究中发现我们的模型/代码/论文有用，欢迎给我们项目点个 ⭐ 并引用我们的工作 📝，谢谢 :)
 ```bibtex
-@misc{wang2024unimernet,
+@misc{wang2024unimernetuniversalnetworkrealworld,
       title={UniMERNet: A Universal Network for Real-World Mathematical Expression Recognition}, 
-      author={Bin Wang and Zhuangcheng Gu and Chao Xu and Bo Zhang and Botian Shi and Conghui He},
+      author={Bin Wang and Zhuangcheng Gu and Guang Liang and Chao Xu and Bo Zhang and Botian Shi and Conghui He},
       year={2024},
       eprint={2404.15254},
       archivePrefix={arXiv},
-      primaryClass={cs.CV}
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2404.15254}, 
+}
+
+@misc{wang2024cdmreliablemetricfair,
+      title={CDM: A Reliable Metric for Fair and Accurate Formula Recognition Evaluation}, 
+      author={Bin Wang and Fan Wu and Linke Ouyang and Zhuangcheng Gu and Rui Zhang and Renqiu Xia and Bo Zhang and Conghui He},
+      year={2024},
+      eprint={2409.03643},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2409.03643}, 
 }
 ```
 

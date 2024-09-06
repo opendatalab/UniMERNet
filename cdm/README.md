@@ -2,7 +2,7 @@
 
 English | [简体中文](./README-CN.md)
 
-<h1>CDM: A Reliable Metric for Fair and Accurate Formula Recognition</h1>
+<h1>CDM: A Reliable Metric for Fair and Accurate Formula Recognition Evaluation</h1>
 
 [[ Paper ]](https://arxiv.org/pdf/2409.03643) [[ Website ]](https://github.com/opendatalab/UniMERNet/tree/main/cdm)
 [[Demo 🤗(Hugging Face)]](https://huggingface.co/spaces/opendatalab/CDM-Demo)
@@ -12,14 +12,24 @@ English | [简体中文](./README-CN.md)
 
 # Overview
 
-CDM's architecture and comparison with other metrics:
+Formula recognition presents significant challenges due to the complicated structure and varied notation of mathematical expressions. Despite continuous advancements in formula recognition models, the evaluation metrics employed by these models, such as BLEU and Edit Distance, still exhibit notable limitations. They overlook the fact that the same formula has diverse representations and is highly sensitive to the distribution of training data, thereby causing the unfairness in formula recognition evaluation. To this end, we propose a Character Detection Matching (CDM) metric, ensuring the evaluation objectivity by designing a image-level rather than LaTex-level metric score. Specifically, CDM renders both the model-predicted LaTeX and the ground-truth LaTeX formulas into image-formatted formulas, then employs visual feature extraction and localization techniques for precise character-level matching, incorporating spatial position information. Such a spatially-aware and character-matching method offers a more accurate and equitable evaluation compared with previous BLEU and Edit Distance metrics that rely solely on text-based character matching.
 
+Comparison between CDM and BLEU, Edit Distance metrics:  
 <div align="center">
-    <img src="assets/demo/demo.png" alt="Overview" width="42.2%" style="margin-right: 2px">
-    <img src="assets/demo/cases.png" alt="Demo" width="52%">
+    <img src="assets/demo/cdm_demo.png" alt="Demo" width="95%">
 </div>
 
-# 
+
+The algorithm flow of CDM is as follows:
+
+<div align="center">
+    <img src="assets/demo/cdm_framework.png" alt="Overview" width="95%">
+</div>
+
+
+CDM's character matching method based on rendered images provides more intuitive results and is not affected by the diversity of formula representations.
+
+
 
 # Usage
 

@@ -2,7 +2,7 @@
 
 [English](./README.md) | [简体中文]
 
-<h1>CDM: A Reliable Metric for Fair and Accurate Formula Recognition</h1>
+<h1>CDM: A Reliable Metric for Fair and Accurate Formula Recognition Evaluation</h1>
 
 [[ 论文 ]](https://arxiv.org/pdf/2409.03643) [[ 网站 ]](https://github.com/opendatalab/UniMERNet/tree/main/cdm)
 [[在线Demo 🤗(Hugging Face)]](https://huggingface.co/spaces/opendatalab/CDM-Demo)
@@ -12,24 +12,41 @@
 
 # 概述
 
-CDM的算法流程以及和BLEU等指标的案例对比如下所示：
+公式识别因其复杂的结构和多样的符号表示而面临重大挑战。尽管公式识别模型不断进步，但现有评估指标如 BLEU 和编辑距离仍存在显著局限性。这些指标忽视了同一公式的多种表示形式，并对训练数据的分布高度敏感，导致评估不公。为此，我们提出了字符检测匹配（CDM）指标，通过设计基于图像而非 LaTeX 的评分方法来确保评估的客观性。具体而言，CDM 将模型预测的 LaTeX 和真实 LaTeX 公式渲染为图像格式，然后使用视觉特征提取和定位技术进行精确的字符级匹配，结合空间位置信息。相比于仅依赖文本字符匹配的 BLEU 和编辑距离，CDM 提供了更准确和公平的评估。
+
+CDM与BLEU、EditDistance等指标对比示意图：
 
 <div align="center">
-    <img src="assets/demo/demo.png" alt="Overview" width="42.2%" style="margin-right: 2px">
-    <img src="assets/demo/cases.png" alt="Demo" width="52%">
+    <img src="assets/demo/cdm_demo.png" alt="Demo" width="95%">
 </div>
+
+> 从上述对比图中可以看出：  
+- Case1: 模型预测正确，理论上ExpRate/BLEU/EditDist应该为1/1/0，实际上为0/0.449/0.571，完全无法反应识别准确性；
+- Case2 Vs Case1: 预测错误的模型(Case2) BLEU/EditDist指标确远优于识别正确的模型结果(Case1)；
+- Case3: 模型预测错误较多，而BLEU指标确高达0.907，不符合直觉。  
+
+
+CDM的算法流程图如下：
+
+<div align="center">
+    <img src="assets/demo/cdm_framework.png" alt="Overview" width="95%">
+</div>
+
+可以看到CDM基于渲染图像的字符匹配方式，结果更加直观，且不受公式表达多样性影响。
+
+
 
 # 
 
 # 使用方法
 
-## 尝试在线Demo
+## 在线Demo体验
 
-尝试CDM在线Demo: [(Hugging Face)🤗](https://huggingface.co/spaces/opendatalab/CDM-Demo)
+请点击HuggingFace Demo链接: [(Hugging Face)🤗](https://huggingface.co/spaces/opendatalab/CDM-Demo)
 
 ## 本地安装CDM
 
-考虑到CDM的环境依赖相对比较复杂，我们推荐在Linux系统上进行尝试。
+CDM需要对公式进行渲染，需要相关依赖包，推荐在Linux系统安装配置
 
 ## 准备环境
 
