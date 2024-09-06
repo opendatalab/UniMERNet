@@ -135,6 +135,7 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     vis_processor = load_processor('formula_image_eval', cfg.config.datasets.formula_rec_eval.vis_processor.eval)
     model.to(device)
+    model.eval()
 
     print(f'arch_name:{cfg.config.model.arch}')
     print(f'model_type:{cfg.config.model.model_type}')

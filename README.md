@@ -1,18 +1,26 @@
+
+
+
 <div align="center">
+
+English | [简体中文](./README-zh_CN.md)
+
+
 <h1>UniMERNet: A Universal Network for Real-World Mathematical Expression Recognition</h1>
 
 
 [[ Paper ]](https://arxiv.org/abs/2404.15254) [[ Website ]](https://github.com/opendatalab/UniMERNet/tree/main) [[ Dataset (OpenDataLab)]](https://opendatalab.com/OpenDataLab/UniMER-Dataset) [[ Dataset (Hugging Face) ]](https://huggingface.co/datasets/wanderkid/UniMER_Dataset)
 
 
-[[Models 🤗(Hugging Face)]](https://huggingface.co/wanderkid/unimernet)
-[[Models <img src="./asset/images/modelscope_logo.png" width="20px">(ModelScope)]](https://www.modelscope.cn/models/wanderkid/UniMERNet/)
+[[Models 🤗(Hugging Face)]](https://huggingface.co/wanderkid/unimernet_base)
+[[Models <img src="./asset/images/modelscope_logo.png" width="20px">(ModelScope)]](https://www.modelscope.cn/models/wanderkid/unimernet_base)
 
 </div>
 
 Welcome to the official repository of UniMERNet, a solution that converts images of mathematical expressions into LaTeX, suitable for a wide range of real-world scenarios.
 
 ## News 🚀🚀🚀
+**2024.09.06** 🎉🎉   Major update to the UniMERNet algorithm. This update includes enhanced algorithm details (refer to the latest version of the paper) and open-sourced training code.  
 **2024.07.21** 🎉🎉  Add Math Formula Detection (MFD) Tutorial based on [PDF-Extract-Kit](https://github.com/opendatalab/PDF-Extract-Kit) MFD model.  
 **2024.06.06** 🎉🎉  Open-sourced evaluation code for UniMER dataset.  
 **2024.05.06** 🎉🎉  Open-sourced UniMER dataset, including UniMER-1M for model training and UniMER-Test for MER evaluation.  
@@ -38,24 +46,42 @@ git clone https://github.com/opendatalab/UniMERNet.git
 cd UniMERNet/models
 # Download the model and tokenizer individually or use git-lfs
 git lfs install
-git clone https://huggingface.co/wanderkid/unimernet
+git clone https://huggingface.co/wanderkid/unimernet_base  # 1.3GB  
+git clone https://huggingface.co/wanderkid/unimernet_small # 773MB  
+git clone https://huggingface.co/wanderkid/unimernet_tiny  # 441MB  
 
 # you can also download the model from ModelScope
-git clone https://www.modelscope.cn/wanderkid/UniMERNet.git
+git clone https://www.modelscope.cn/wanderkid/unimernet_base.git
+git clone https://www.modelscope.cn/wanderkid/unimernet_small.git
+git clone https://www.modelscope.cn/wanderkid/unimernet_tiny.git
 
 ```
 
 ### Installation
 
-``` bash 
+> Create a clean Conda environment
+
+```bash
 conda create -n unimernet python=3.10
-
 conda activate unimernet
+```
 
+> Method 1: Install via pip (recommended for general users)
+
+```bash
 pip install --upgrade unimernet
-
 pip install "unimernet[full]"
 ```
+
+> Method 2: Local installation (recommended for developers)
+
+```bash
+pip install -e ."[full]"
+```
+
+
+
+
 
 ### Running UniMERNet
 
@@ -77,28 +103,13 @@ pip install "unimernet[full]"
     ```bash
     jupyter-lab ./demo.ipynb
     ```
-## Evaluation
-### Download UniMER-Test Dataset
 
-Download the UniMER-Test dataset and extract it to the following directory:
-
-```bash
-./data/UniMER-Test
-```
-
-### Run Evaluation Code
-
-
-```bash
-python test.py --cfg configs/demo.yaml
-```
 
 ## Performance Comparison (BLEU) with SOTA Methods.
 
 > UniMERNet significantly outperforms mainstream models in recognizing real-world mathematical expressions, demonstrating superior performance across Simple Printed Expressions (SPE), Complex Printed Expressions (CPE), Screen-Captured Expressions (SCE), and Handwritten Expressions (HWE), as evidenced by the comparative BLEU Score evaluation.  
 
-
-![BLEU](https://github.com/opendatalab/VIGC/assets/69186975/ec8eb3e2-4ccc-4152-b18c-e86b442e2dcc)
+![BLEU](./asset/papers/fig1_bleu.jpg)
 
 
 
@@ -128,6 +139,51 @@ The UniMER dataset is a specialized collection curated to advance the field of M
 ### Dataset Download
 You can download the dataset from [OpenDataLab](https://opendatalab.com/OpenDataLab/UniMER-Dataset) (recommended for users in China) or [HuggingFace](https://huggingface.co/datasets/wanderkid/UniMER_Dataset).
 
+### Download UniMER-Test Dataset
+
+
+Download the UniMER-1M dataset and extract it to the following directory:
+```bash
+./data/UniMER-1M
+```
+
+Download the UniMER-Test dataset and extract it to the following directory:
+```bash
+./data/UniMER-Test
+```
+
+## Training
+
+To train the UniMERNet model, follow these steps:
+
+1. **Specify the Training Dataset Path**: Open the `configs/train` fold and set the path to your training dataset.
+
+2. **Run the Training Script**: Execute the following command to start the training process.
+
+    ```bash
+    bash script/train.sh
+    ```
+
+### Notes:
+- Ensure that the dataset path specified in the `configs/train` fold is correct and accessible.
+- Monitor the training process for any errors or issues.
+
+## Testing
+
+To test the UniMERNet model, follow these steps:
+
+1. **Specify the Test Dataset Path**: Open the `configs/val` fold and set the path to your test dataset.
+
+2. **Run the Test Script**: Execute the following command to start the testing process.
+
+    ```bash
+    bash script/test.sh
+    ```
+
+### Notes:
+- Ensure that the dataset path specified in the `configs/val` fold is correct and accessible.
+- The `test.py` script will use the specified test dataset for evaluation. Remember to change the test set path in test.py to your actual path.
+- Review the test results for performance metrics and any potential issues.
 
 ## Math Formula Detection Tutorial
 
@@ -136,10 +192,10 @@ The prerequisite for formula recognition is to detect the areas within PDF or we
 
 ## TODO
 
-- [x] Release inference code and checkpoints of UniMERNet.
-- [x] Release UniMER-1M and UniMER-Test.
-- [x] Open-source the Streamlit formula recognition GUI application. 
-- [ ] Release the training code for UniMERNet.
+[✅] Release inference code and checkpoints of UniMERNet.  
+[✅] Release UniMER-1M and UniMER-Test.  
+[✅] Open-source the Streamlit formula recognition GUI application.   
+[✅] Release the training code for UniMERNet.  
 
 ## Citation
 If you find our models / code / papers useful in your research, please consider giving us a star ⭐ and citing our work 📝, thank you :)

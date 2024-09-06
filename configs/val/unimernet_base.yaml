@@ -1,0 +1,86 @@
+model:
+  arch: unimernet
+  model_type: unimernet
+  model_config:
+    model_name: ./models/unimernet_base
+    max_seq_len: 1536
+
+
+  load_pretrained: False
+  load_finetuned: True
+  finetuned: './models/unimernet_base.pth'
+
+datasets:
+
+  formula_rec_train:
+    sample_ratio: 1
+    vis_processor:
+      train:
+        name: "formula_image_train"
+        image_size:
+          - 192
+          - 672
+    text_processor:
+      train:
+        name: "blip_caption"
+        max_words: 1536
+
+    build_info:
+      # unimath_train
+      images: ./data/UniMath1M/train/unimath_train
+      annotation: ./data/UniMath1M/train/unimath_train.txt
+      
+  formula_rec_eval:
+    vis_processor:
+      eval:
+        name: "formula_image_eval"
+        image_size:
+          - 192
+          - 672
+    text_processor:
+      eval:
+        name: "blip_caption"
+        max_words: 1536
+
+    build_info:
+      images: ./data/UniMER-Test/cpe
+      annotation: ./data/UniMER-Test/cpe.txt
+
+run:
+  runner: runner_iter
+  task: unimernet_train
+  # optimizer
+  lr_sched: "linear_warmup_cosine_lr"
+  init_lr: 1e-4
+  min_lr: 1e-8
+  warmup_lr: 1e-5
+  weight_decay: 0.05
+  batch_size_train: 8
+  batch_size_eval: 8
+  accum_grad_iters: 1
+  num_workers: 8
+  warmup_steps: 5000
+  iters_per_inner_epoch: 20000
+  max_iters: 300000
+  milestone: [1]
+
+  seed: 42
+  
+
+  output_dir: "../outputs_unimernet/unimernet_base"
+
+  amp: True
+  resume_ckpt_path: null
+
+  evaluate: False
+  train_splits: [ "train" ]
+  valid_splits: [ "eval" ]
+
+  device: "cuda"
+  world_size: 1
+  dist_url: "env://"
+  distributed: True
+  distributed_type: ddp  # or fsdp when train llm
+
+  generate_cfg:
+    temperature: 0.0
