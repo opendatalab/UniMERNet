@@ -9,6 +9,7 @@ __pycache__/
 *.out
 # *.log
 *.txt
+.ipynb_checkpoints/
 
 # Ignore VS Code configuration directory
 .vscode/
