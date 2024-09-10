@@ -72,8 +72,7 @@ conda activate unimernet
 > Method 1: Install via pip (recommended for general users)
 
 ```bash
-pip install --upgrade unimernet
-pip install "unimernet[full]"
+pip install -U "unimernet[full]"
 ```
 
 > Method 2: Local installation (recommended for developers)
