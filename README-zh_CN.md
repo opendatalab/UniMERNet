@@ -1,7 +1,6 @@
-
 <div align="center">
 
-[English](./README.md) | 简体中文
+[English](./README.md) | 简体中文 | [日本語](./README-ja.md)
 
 <h1>UniMERNet: 一个用于真实世界数学表达式识别的通用网络</h1>
 
