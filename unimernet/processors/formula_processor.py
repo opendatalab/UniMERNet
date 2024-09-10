@@ -8,8 +8,6 @@ import cv2
 from PIL import Image, ImageOps
 from torchvision.transforms.functional import resize
 import random
-from unimernet.processors.formula_processor_helper.nougat import Bitmap, Dilation, Erosion
-from unimernet.processors.formula_processor_helper.weather import Fog, Frost, Snow, Rain, Shadow
 
 
 class FormulaImageBaseProcessor(BaseProcessor):
@@ -76,6 +74,10 @@ class FormulaImageBaseProcessor(BaseProcessor):
 class FormulaImageTrainProcessor(FormulaImageBaseProcessor):
     def __init__(self, image_size=384):
         super().__init__(image_size)
+
+        # Import weather-related augmentations only when initializing this class
+        from unimernet.processors.formula_processor_helper.nougat import Bitmap, Dilation, Erosion
+        from unimernet.processors.formula_processor_helper.weather import Fog, Frost, Snow, Rain, Shadow
 
         self.transform = alb.Compose(
             [
