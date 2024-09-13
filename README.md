@@ -1,9 +1,6 @@
-
-
-
 <div align="center">
 
-English | [简体中文](./README-zh_CN.md)
+English | [简体中文](./README-zh_CN.md) | [日本語](./README-ja.md)
 
 
 <h1>UniMERNet: A Universal Network for Real-World Mathematical Expression Recognition</h1>
