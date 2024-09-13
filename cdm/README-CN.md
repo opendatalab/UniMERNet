@@ -141,7 +141,6 @@ python convert2cdm_format.py -i {UniMERNet predictions} -o {save path}
 ```
 python evaluation.py -i {path_to_your_input_json}
 ```
-```
 
 ### 2. 启动 gradio demo
 
