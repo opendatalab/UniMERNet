@@ -101,11 +101,16 @@ Should the installation goes well, you may now use CDM to evaluate your formula 
 
 ### 1. batch evaluation 
 
+- prepare input json
+
+evaluate on UniMERNet results, use this convert script to get json file:
+
 ```
-python evaluation.py -i {path_to_your_input_json}
+python convert2cdm_format.py -i {UniMERNet predictions} -o {save path}
 ```
 
-the format of input json like this:
+otherwise, prepare a json file follow this format:
+
 ```
 [
     {
@@ -121,6 +126,15 @@ the format of input json like this:
     ...
 ]
 ```
+
+`Note that in json files, some special characters such as "\" need escaped character, for example "\begin" should be written as "\\begin".`
+
+- evaluate:
+
+```
+python evaluation.py -i {path_to_your_input_json}
+```
+
 
 ### 2. launch a gradio demo
 

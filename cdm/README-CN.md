@@ -108,11 +108,16 @@ pip install -r requirements.txt
 
 ### 1. 批量评测 
 
+- 准备输入的json文件
+
+在UniMERNet上评测，可以用下面的脚本获取json文件:
+
 ```
-python evaluation.py -i {path_to_your_input_json}
+python convert2cdm_format.py -i {UniMERNet predictions} -o {save path}
 ```
 
-输入的json格式如下所示:
+或者，也可以参考下面的格式自行准备json文件:
+
 ```
 [
     {
@@ -127,6 +132,15 @@ python evaluation.py -i {path_to_your_input_json}
     },
     ...
 ]
+```
+
+`注意在json文件中，一些特殊字符比如 "\" 需要进行转义, 比如 "\begin" 在json文件中就需要保存为 "\\begin".`
+
+- 评测:
+
+```
+python evaluation.py -i {path_to_your_input_json}
+```
 ```
 
 ### 2. 启动 gradio demo
