@@ -110,7 +110,11 @@ pip install -e ."[full]"
 
 ![BLEU](./asset/papers/fig1_bleu.jpg)
 
+## Performance Comparison (CDM) with SOTA Methods.
 
+> Due to the diversity of expression of formulas, it is unfair to compare different models by BLEU metric. Therefore, we conduct evaluation by CDM, a specially designed metric for formula recognition. Our method is far superior to the open source model and has the same effect as that of commercial software Mathpix. CDM@ExpRate means that the proportion of correct formulas is completely predicted. Refer to [CDM](https://arxiv.org/pdf/2409.03643) paper for details.
+
+![CDM](./asset/papers/fig2_cdm.jpg)
 
 ## Visualization Result with Different Methods.
 

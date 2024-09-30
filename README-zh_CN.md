@@ -101,6 +101,12 @@ pip install -e ."[full]"
 
 ![BLEU](./asset/papers/fig1_bleu.jpg)
 
+## 与 SOTA 方法的性能比较（CDM）。
+
+> 由于公式存在表达的多样性，使用BLEU指标对于不同模型对比不具备公平性，为此我们在专门针对公式识别设计的CDM上进行评估，我们的方法远超开源模型，与商业软件Mathpix效果相当，CDM@ExpRate是指完全预测正确公式占比，具体参考[CDM](https://arxiv.org/pdf/2409.03643)论文。
+
+![CDM](./asset/papers/fig2_cdm.jpg)
+
 ## 不同方法的可视化结果。
 
 > UniMERNet 在挑战性样本的视觉识别方面表现出色，优于其他方法。
