@@ -19,7 +19,6 @@ include = [
 python = ">=3.10"
 torch = ">=2.2.2,<=2.3.1"
 torchvision = ">=0.17.2,<=0.18.1"
-torchtext = ">=0.17.2,<=0.18.0"
 omegaconf = "^2.3.0"
 matplotlib = "^3.8.4"
 iopath = "^0.1.9"
