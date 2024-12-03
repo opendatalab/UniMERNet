@@ -8,7 +8,6 @@ from unimernet.common.dist_utils import main_process
 import os.path as osp
 import json
 import numpy as np
-from torchtext.data import metrics
 from rapidfuzz.distance import Levenshtein
 
 
