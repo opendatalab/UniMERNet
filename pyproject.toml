@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "unimernet"
-version = "0.2.1"
+version = "0.2.2"
 description = 'UniMERNet: A Universal Network for Real-World Mathematical Expression Recognition'
 authors = ["Bin Wang <ictwangbin@gmail.com>"]
 readme = "README.md"
@@ -17,8 +17,8 @@ include = [
 
 [tool.poetry.dependencies]
 python = ">=3.10"
-torch = ">=2.2.2,<=2.3.1"
-torchvision = ">=0.17.2,<=0.18.1"
+torch = ">=2.2.2"
+torchvision = ">=0.17.2"
 omegaconf = "^2.3.0"
 matplotlib = "^3.8.4"
 iopath = "^0.1.9"
