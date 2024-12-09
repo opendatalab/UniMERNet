@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "unimernet"
-version = "0.2.1"
+version = "0.2.2"
 description = 'UniMERNet: A Universal Network for Real-World Mathematical Expression Recognition'
 authors = ["Bin Wang <ictwangbin@gmail.com>"]
 readme = "README.md"
