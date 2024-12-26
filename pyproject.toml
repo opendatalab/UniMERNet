@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "unimernet"
-version = "0.2.2"
+version = "0.2.3"
 description = 'UniMERNet: A Universal Network for Real-World Mathematical Expression Recognition'
 authors = ["Bin Wang <ictwangbin@gmail.com>"]
 readme = "README.md"
@@ -30,7 +30,6 @@ fairscale = "^0.4.13"
 ftfy = {version = "^6.2.0", python = ">=3.10,<4.0"}
 albumentations = "^1.4.4"
 wand = "^0.6.13"
-eva-decord = "^0.6.1"
 webdataset = "^0.2.86"
 rapidfuzz = "^3.8.1"
 termcolor = "^2.4.0"
