@@ -12,41 +12,15 @@ import random as rnd
 import tarfile
 import zipfile
 
-import decord
 import webdataset as wds
 import numpy as np
 import torch
 from torch.utils.data.dataset import IterableDataset, ChainDataset
-from decord import VideoReader
 from unimernet.common.registry import registry
 from unimernet.datasets.datasets.base_dataset import ConcatDataset
 from tqdm import tqdm
 
-decord.bridge.set_bridge("torch")
 MAX_INT = registry.get("MAX_INT")
-
-
-def load_video(video_path, n_frms=MAX_INT, height=-1, width=-1, sampling="uniform"):
-    vr = VideoReader(uri=video_path, height=height, width=width)
-
-    vlen = len(vr)
-    start, end = 0, vlen
-
-    n_frms = min(n_frms, vlen)
-
-    if sampling == "uniform":
-        indices = np.arange(start, end, vlen / n_frms).astype(int)
-    elif sampling == "headtail":
-        indices_h = sorted(rnd.sample(range(vlen // 2), n_frms // 2))
-        indices_t = sorted(rnd.sample(range(vlen // 2, vlen), n_frms // 2))
-        indices = indices_h + indices_t
-    else:
-        raise NotImplementedError
-
-    # get_batch -> T, H, W, C
-    frms = vr.get_batch(indices).permute(3, 0, 1, 2).float()  # (C, T, H, W)
-
-    return frms
 
 
 def apply_to_sample(f, sample):
