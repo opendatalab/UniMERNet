@@ -16,10 +16,10 @@
 UniMERNetの公式リポジトリへようこそ。これは、数式の画像をLaTeXに変換するソリューションであり、さまざまな実世界のシナリオに適しています。
 
 ## ニュース 🚀🚀🚀
-**2025.03.25** 🎉🎉 <font color="red">新しい数式認識指標[CDM](https://arxiv.org/abs/2409.03643)に関する論文がCVPR 2025に採択されました。ぜひご利用ください。</font>
-**2024.09.06** 🎉🎉  UniMERNetの更新: 新バージョンはモデルが小さくなり、推論が高速化されました。トレーニングコードがオープンソース化されました。詳細は最新の論文[UniMERNet](https://arxiv.org/abs/2404.15254)をご覧ください。   
-**2024.09.06** 🎉🎉  数式認識の新しい指標を導入: [CDM](https://github.com/opendatalab/UniMERNet/tree/main/cdm)。BLEU/EditDistanceと比較して、CDMはより直感的で正確な評価スコアを提供し、数式表現の多様性に影響されずに異なるモデルの公平な比較を可能にします。
-**2024.07.21** 🎉🎉  [PDF-Extract-Kit](https://github.com/opendatalab/PDF-Extract-Kit) MFDモデルに基づく数式検出（MFD）チュートリアルを追加しました。  
+**2025.03.25** 🎉🎉 <font color="red">新しい数式認識指標[CDM](https://arxiv.org/abs/2409.03643)に関する論文がCVPR 2025に採択されました。ぜひご利用ください。</font>  
+**2024.09.06** 🎉🎉  UniMERNetの更新: 新バージョンはモデルが小さくなり、推論が高速化されました。トレーニングコードがオープンソース化されました。詳細は最新の論文[UniMERNet](https://arxiv.org/abs/2404.15254)をご覧ください。     
+**2024.09.06** 🎉🎉  数式認識の新しい指標を導入: [CDM](https://github.com/opendatalab/UniMERNet/tree/main/cdm)。BLEU/EditDistanceと比較して、CDMはより直感的で正確な評価スコアを提供し、数式表現の多様性に影響されずに異なるモデルの公平な比較を可能にします。  
+**2024.07.21** 🎉🎉  [PDF-Extract-Kit](https://github.com/opendatalab/PDF-Extract-Kit) MFDモデルに基づく数式検出（MFD）チュートリアルを追加しました。    
 **2024.06.06** 🎉🎉  UniMERデータセットの評価コードをオープンソース化しました。  
 **2024.05.06** 🎉🎉  UniMERデータセットをオープンソース化しました。これには、モデルトレーニング用のUniMER-1MとMER評価用のUniMER-Testが含まれます。  
 **2024.05.06** 🎉🎉  Streamlit数式認識デモを追加し、ローカルデプロイメントアプリを提供しました。  
