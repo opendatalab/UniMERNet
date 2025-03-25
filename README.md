@@ -19,8 +19,9 @@ English | [简体中文](./README-zh_CN.md) | [日本語](./README-ja.md)
 Welcome to the official repository of UniMERNet, a solution that converts images of mathematical expressions into LaTeX, suitable for a wide range of real-world scenarios.
 
 ## News 🚀🚀🚀
-**2024.09.06** 🎉🎉  <font color="red">UniMERNet Update: The new version features a smaller model and faster inference. Training code is now open-sourced. For details, see the latest paper [UniMERNet](https://arxiv.org/abs/2404.15254).</font>   
-**2024.09.06** 🎉🎉  <font color="red">Introducing a new metric for formula recognition: [CDM](https://github.com/opendatalab/UniMERNet/tree/main/cdm). Compared to BLEU/EditDistance, CDM provides a more intuitive and accurate evaluation score, allowing for fair comparison of different models without being affected by formula expression diversity. </font>  
+**2025.03.25** 🎉🎉 <font color="red">The paper on our new formula recognition metric, [CDM](https://arxiv.org/abs/2409.03643), has been accepted by CVPR 2025. We invite everyone to use it.</font>
+**2024.09.06** 🎉🎉  UniMERNet Update: The new version features a smaller model and faster inference. Training code is now open-sourced. For details, see the latest paper [UniMERNet](https://arxiv.org/abs/2404.15254).
+**2024.09.06** 🎉🎉  Introducing a new metric for formula recognition: [CDM](https://github.com/opendatalab/UniMERNet/tree/main/cdm). Compared to BLEU/EditDistance, CDM provides a more intuitive and accurate evaluation score, allowing for fair comparison of different models without being affected by formula expression diversity.
 **2024.07.21** 🎉🎉  Add Math Formula Detection (MFD) Tutorial based on [PDF-Extract-Kit](https://github.com/opendatalab/PDF-Extract-Kit) MFD model.  
 **2024.06.06** 🎉🎉  Open-sourced evaluation code for UniMER dataset.  
 **2024.05.06** 🎉🎉  Open-sourced UniMER dataset, including UniMER-1M for model training and UniMER-Test for MER evaluation.  

@@ -9,15 +9,16 @@
 [[模型 🤗(Hugging Face)]](https://huggingface.co/wanderkid/unimernet_base)
 [[模型 <img src="./asset/images/modelscope_logo.png" width="20px">(ModelScope)]](https://www.modelscope.cn/models/wanderkid/unimernet_base)
 
-🔥🔥 [CDM: 一种公平、准确的可信公式识别评测指标](https://github.com/opendatalab/UniMERNet/tree/main/cdm)
+🔥🔥🔥 [CDM: 一种公平、准确的可信公式识别评测指标](https://github.com/opendatalab/UniMERNet/tree/main/cdm)
 
 </div>
 
 欢迎来到 UniMERNet 的官方仓库，这是一个将数学表达式图像转换为 LaTeX 的解决方案，适用于各种真实世界场景。
 
 ## 新闻 🚀🚀🚀
-**2024.09.06** 🎉🎉  <font color="red">UniMERNet 版本更新，训练代码开源，新版本模型更小，速度更快。具体见最新版本论文[UniMERNet](https://arxiv.org/abs/2404.15254)。</font>    
-**2024.09.06** 🎉🎉  <font color="red">提出公式识别新指标[CDM](https://github.com/opendatalab/UniMERNet/tree/main/cdm)，相比于BLEU/EditDistance，CDM评测得分更加直观，准确，可以公平对比不同模型性能，不受公式多样性表达影响。</font>  
+**2025.03.25** 🎉🎉  <font color="red">公式识别新指标[CDM](https://arxiv.org/abs/2409.03643) 论文已被CVPR 2025接收，欢迎大家使用。</font>   
+**2024.09.06** 🎉🎉  UniMERNet 版本更新，训练代码开源，新版本模型更小，速度更快。具体见最新版本论文[UniMERNet](https://arxiv.org/abs/2404.15254)。
+**2024.09.06** 🎉🎉  提出公式识别新指标[CDM](https://github.com/opendatalab/UniMERNet/tree/main/cdm)，相比于BLEU/EditDistance，CDM评测得分更加直观，准确，可以公平对比不同模型性能，不受公式多样性表达影响。
 **2024.07.21** 🎉🎉  基于 [PDF-Extract-Kit](https://github.com/opendatalab/PDF-Extract-Kit) MFD 模型，添加了数学公式检测 (MFD) 教程。  
 **2024.06.06** 🎉🎉  开源了 UniMER 数据集的评估代码。  
 **2024.05.06** 🎉🎉  开源了 UniMER 数据集，包括用于模型训练的 UniMER-1M 和用于 MER 评估的 UniMER-Test。  

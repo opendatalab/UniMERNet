@@ -2,7 +2,7 @@
 
 English | [简体中文](./README-CN.md)
 
-<h1>CDM: A Reliable Metric for Fair and Accurate Formula Recognition Evaluation</h1>
+<h1>Image Over Text: Transforming Formula Recognition Evaluation with Character Detection Matching</h1>
 
 [[ Paper ]](https://arxiv.org/pdf/2409.03643) [[ Website ]](https://github.com/opendatalab/UniMERNet/tree/main/cdm)
 [[Demo 🤗(Hugging Face)]](https://huggingface.co/spaces/opendatalab/CDM-Demo)
@@ -23,7 +23,7 @@ Comparison between CDM and BLEU, Edit Distance metrics:
 The algorithm flow of CDM is as follows:
 
 <div align="center">
-    <img src="assets/demo/cdm_framework.png" alt="Overview" width="95%">
+    <img src="assets/demo/cdm_framework_new.png" alt="Overview" width="95%">
 </div>
 
 

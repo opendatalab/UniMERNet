@@ -2,7 +2,7 @@
 
 [English](./README.md) | [简体中文]
 
-<h1>CDM: A Reliable Metric for Fair and Accurate Formula Recognition Evaluation</h1>
+<h1>Image Over Text: Transforming Formula Recognition Evaluation with Character Detection Matching</h1>
 
 [[ 论文 ]](https://arxiv.org/pdf/2409.03643) [[ 网站 ]](https://github.com/opendatalab/UniMERNet/tree/main/cdm)
 [[在线Demo 🤗(Hugging Face)]](https://huggingface.co/spaces/opendatalab/CDM-Demo)
@@ -29,7 +29,7 @@ CDM与BLEU、EditDistance等指标对比示意图：
 CDM的算法流程图如下：
 
 <div align="center">
-    <img src="assets/demo/cdm_framework.png" alt="Overview" width="95%">
+    <img src="assets/demo/cdm_framework_new.png" alt="Overview" width="95%">
 </div>
 
 可以看到CDM基于渲染图像的字符匹配方式，结果更加直观，且不受公式表达多样性影响。
