@@ -432,6 +432,7 @@ class CustomMBartForCausalLM(MBartForCausalLM):
         print("CustomMBartForCausalLM init")
         super().__init__(config)
         # Modify the decoder within MBartDecoderWrapper
+        config._attn_implementation = "eager"
         self.model.decoder = CustomMBartDecoder(config)
 
     
