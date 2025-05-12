@@ -8,10 +8,10 @@ pip install ultralytics
 
 # download with modelscope
 cd MFD/
-wget -c https://www.modelscope.cn/models/wanderkid/PDF-Extract-Kit/resolve/master/models/MFD/weights.pt
+wget -c https://www.modelscope.cn/models/OpenDataLab/PDF-Extract-Kit/resolve/master/models/MFD/weights.pt
 
 # you can also download with huggingface
-# https://huggingface.co/wanderkid/PDF-Extract-Kit/blob/main/models/MFD/weights.pt
+# https://huggingface.co/opendatalab/PDF-Extract-Kit/blob/main/models/MFD/weights.pt
 ```
 
 ## Run the demo
