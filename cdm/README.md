@@ -94,6 +94,9 @@ sudo apt-get install texlive-full
 pip install -r requirements.txt
 ```
 
+## install by docker
+
+you can also install CDM by docker, there is a reference [DockerFile](https://huggingface.co/spaces/opendatalab/CDM-Demo/blob/main/Dockerfile) in huggingce demo.
 
 ## Use CDM Locally
 

@@ -101,6 +101,9 @@ sudo apt-get install texlive-full
 pip install -r requirements.txt
 ```
 
+## 通过docker部署
+
+如果直接部署遇到问题，也可以尝试用docker部署，可以参考huggingdace demo里的[DockerFile](https://huggingface.co/spaces/opendatalab/CDM-Demo/blob/main/Dockerfile).
 
 ## 使用CDM
 
