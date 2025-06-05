@@ -42,41 +42,67 @@ def norm_coords(x, left, right):
 
 def norm_same_token(token):
     special_map = {
+        "\\dot": ".",
+        "\\Dot": ".",
         "\\cdot": ".",
+        "\\cdotp": ".",
+        "\\ldotp": ".",
         "\\mid": "|",
-        "\\to": "\\rightarrow",
+        "\\rightarrow": "\\to",
         "\\top": "T",
         "\\Tilde": "\\tilde",
-        "\\cdots": "\\dots",
         "\\prime": "'",
         "\\ast": "*",
         "\\left<": "\\langle",
-        "\\right>": "\\rangle"
+        "\\right>": "\\rangle",
+        "\\lbrace": "\{",
+        "\\rbrace": "\}",
+        "\\lbrack": "[",
+        "\\rbrack": "]",
+        "\\blackslash": "/",
+        "\\slash": "/",
+        "\\leq": "\\le",
+        "\\geq": "\\ge",
+        "\\neq": "\\ne",
+        "\\Vert": "\\|",
+        "\\lVert": "\\|",
+        "\\rVert": "\\|",
+        "\\vert": "|",
+        "\\lvert": "|",
+        "\\rvert": "|",
+        "\\colon": ":",
+        "\\Ddot": "\\ddot",
+        "\\Bar": "\\bar",
+        "\\Vec": "\\vec",
+        "\\parallel": "\\|",
+        "\\dag": "\\dagger",
+        "\\ddag": "\\ddagger",
+        "\\textlangle": "<",
+        "\\textrangle": ">",
+        "\\textgreater": ">",
+        "\\textless": "<",
+        "\\textbackslash": "n",
+        "\\textunderscore": "_",
+        "\\=": "_",
+        "\\neg": "\\lnot",
+        "\\neq": "\\not=",
     }
-    if token in special_map.keys():
-        token = special_map[token]
     if token.startswith('\\left') or token.startswith('\\right'):
-        token = token.replace("\\left", "").replace("\\right", "")
+        if "arrow" not in token and "<" not in token and ">" not in token and "harpoon" not in token:
+            token = token.replace("\\left", "").replace("\\right", "")
     if token.startswith('\\big') or token.startswith('\\Big'):
         if "\\" in token[4:]:
             token = "\\"+token[4:].split("\\")[-1]
         else:
             token = token[-1]
-    
-    if token in ['\\leq', '\\geq']:
-        return token[0:-1]
-    if token in ['\\lVert', '\\rVert', '\\Vert']:
-        return '\\|'
-    if token in ['\\lvert', '\\rvert', '\\vert']:
-        return '|'
-    if token.endswith("rightarrow"):
-        return "\\rightarrow"
-    if token.endswith("leftarrow"):
-        return "\\leftarrow"
+    if token in special_map.keys():
+        token = special_map[token]
     if token.startswith('\\wide'):
         return token.replace("wide", "")
     if token.startswith('\\var'):
-        return token.replace("\\var", "")
+        return token.replace("var", "")
+    if token.startswith('\\string'):
+        return token.replace("\\string", "")
     return token
 
 
