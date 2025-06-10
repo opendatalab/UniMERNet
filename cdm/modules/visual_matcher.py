@@ -117,18 +117,6 @@ class HungarianMatcher:
         self.cost_position = cost_position
         self.cost_order = cost_order
         self.cost = {}
-    
-    def calculate_token_cost_old(self, box_gt, box_pred):
-        token_cost = np.ones((len(box_gt), len(box_pred)))
-        for i in range(token_cost.shape[0]):
-            box1 = box_gt[i]
-            for j in range(token_cost.shape[1]):
-                box2 = box_pred[j]
-                if box1['token'] == box2['token']:
-                    token_cost[i, j] = 0
-                elif norm_same_token(box1['token']) == norm_same_token(box2['token']):
-                    token_cost[i, j] = 0.05
-        return np.array(token_cost)
         
     def calculate_token_cost(self, box_gt, box_pred):
         token2id = {}
@@ -169,7 +157,7 @@ class HungarianMatcher:
         token_cost = 1.0 - pred_token_logits[:, gt_token_array]
         norm_token_cost = 1.0 - norm_pred_token_logits[:, norm_gt_token_array]
 
-        token_cost[np.logical_and(token_cost==1, norm_token_cost==0)] = 0.05
+        token_cost[np.logical_and(token_cost==1, norm_token_cost==0)] = 0.005
         return token_cost.T
         
         
@@ -181,10 +169,12 @@ class HungarianMatcher:
             box_array.append([x_min/W, y_min/H, x_max/W, y_max/H])
         return np.array(box_array)
         
-    def order2array(self, box_list):
+    def order2array(self, box_list, max_token_lens=None):
+        if not max_token_lens:
+            max_token_lens = len(box_list)
         order_array = []
         for idx, box in enumerate(box_list):
-            order_array.append([idx / len(box_list)])
+            order_array.append([idx / max_token_lens])
         return np.array(order_array)
     
     def calculate_l1_cost(self, gt_array, pred_array):
@@ -196,8 +186,10 @@ class HungarianMatcher:
         aa = time.time()
         gt_box_array = self.box2array(box_gt, gt_size)
         pred_box_array = self.box2array(box_pred, pred_size)
-        gt_order_array = self.order2array(box_gt)
-        pred_order_array = self.order2array(box_pred)
+
+        max_token_lens = max(len(box_gt), len(box_pred))
+        gt_order_array = self.order2array(box_gt, max_token_lens)
+        pred_order_array = self.order2array(box_pred, max_token_lens)
 
         token_cost = self.calculate_token_cost(box_gt, box_pred)
         position_cost = self.calculate_l1_cost(gt_box_array, pred_box_array)

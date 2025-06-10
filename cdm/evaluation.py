@@ -70,9 +70,9 @@ def evaluation(data_root, user_id="test"):
     match_vis_dir = os.path.join(data_root, "vis_match")
     os.makedirs(match_vis_dir, exist_ok=True)
     
-    max_iter = 3
-    min_samples = 3
-    residual_threshold = 25
+    max_iter = 5
+    min_samples = 2
+    residual_threshold = 20
     max_trials = 50
     
     metrics_per_img = {}
