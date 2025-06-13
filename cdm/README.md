@@ -41,8 +41,6 @@ Try CDM on our online demo: [(Hugging Face)🤗](https://huggingface.co/spaces/o
 
 Given CDM's complex environment dependencies, we recommend trying it on Linux systems.
 
-## prepare environment
-
 Nodejs, imagemagic, pdflatex are requried packages when render pdf files and convert them to images, here are installation guides.
 
 ### step.1 install nodejs
@@ -96,7 +94,21 @@ pip install -r requirements.txt
 
 ## install by docker
 
-you can also install CDM by docker, there is a reference [DockerFile](https://huggingface.co/spaces/opendatalab/CDM-Demo/blob/main/Dockerfile) in huggingce demo.
+you can also install CDM by docker:
+
+- build docker image
+
+```
+docker build -f DockerFile -t cdm:test .
+```
+
+- start and run container
+
+```
+docker run -itd --name cdm cdm:test
+docker exec -it cdm bash
+```
+
 
 ## Use CDM Locally
 

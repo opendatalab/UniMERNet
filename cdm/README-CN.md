@@ -103,7 +103,20 @@ pip install -r requirements.txt
 
 ## 通过docker部署
 
-如果直接部署遇到问题，也可以尝试用docker部署，可以参考huggingdace demo里的[DockerFile](https://huggingface.co/spaces/opendatalab/CDM-Demo/blob/main/Dockerfile).
+如果安装上述的环境有问题，也可以通过docker来安装，步骤如下：
+
+- build docker image
+
+```
+docker build -f DockerFile -t cdm:test .
+```
+
+- start and run container
+
+```
+docker run -itd --name cdm cdm:test
+docker exec -it cdm bash
+```
 
 ## 使用CDM
 
