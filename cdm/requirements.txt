@@ -3,4 +3,4 @@ matplotlib
 numpy<2.0.0
 scikit-image<=0.20.0
 opencv-python
-gradio==4.16.0    # optional
+gradio==4.43.0    # optional

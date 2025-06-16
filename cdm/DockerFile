@@ -1,6 +1,6 @@
 FROM python:3.8
 
-WORKDIR /code
+WORKDIR /packages
 
 RUN wget https://registry.npmmirror.com/-/binary/node/latest-v16.x/node-v16.13.1-linux-x64.tar.gz \
     && tar -xvf node-v16.13.1-linux-x64.tar.gz \
@@ -21,20 +21,8 @@ RUN git clone https://github.com/ImageMagick/ImageMagick.git ImageMagick-7.1.1 \
     && ldconfig /usr/local/lib \
     && convert --version
 
-COPY ./requirements.txt /code/requirements.txt
+WORKDIR /code
+
+COPY . /code
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
-
-
-RUN useradd -m -u 1000 user
-
-USER user
-
-ENV HOME=/home/user \
-    PATH=/home/user/.local/bin:$PATH
-
-WORKDIR $HOME/app
-
-COPY --chown=user . $HOME/app
-
-CMD ["python", "evaluation.py"]
