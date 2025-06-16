@@ -110,13 +110,14 @@ pip install -r requirements.txt
 ```
 docker build -f DockerFile -t cdm:test .
 ```
+构建镜像的过程可能比较长，如果最后终端出现`Successfully tagged cdm:test`，说明镜像构建成功。
 
-- start and run container
+- start a container
 
 ```
-docker run -itd --name cdm cdm:test
-docker exec -it cdm bash
+docker run -it --user root cdm:test bash
 ```
+此时启动了容器并进入bash环境，可以进行CDM的评测。如果在启动的时候希望建立映射，可以加入参数：`-v xxx:xxx`，这样退出容器后，评测的结果还保存在宿主机。
 
 ## 使用CDM
 

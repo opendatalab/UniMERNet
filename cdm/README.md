@@ -101,14 +101,13 @@ you can also install CDM by docker:
 ```
 docker build -f DockerFile -t cdm:test .
 ```
-
-- start and run container
+The process of building the image may take some time. If the terminal finally shows `Successfully tagged cdm:test`, it indicates that the image has been built successfully.
+- start a container
 
 ```
-docker run -itd --name cdm cdm:test
-docker exec -it cdm bash
+docker run -it --user root cdm:test bash
 ```
-
+At this point, the container has been started and the bash environment has been entered, allowing for the evaluation of CDM. If you want to establish a mapping when starting, you can add the parameter: `-v xxx:xxx`, so that the evaluation results are still saved on the host machine after exiting the container.
 
 ## Use CDM Locally
 

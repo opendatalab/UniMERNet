@@ -21,9 +21,9 @@ RUN git clone https://github.com/ImageMagick/ImageMagick.git ImageMagick-7.1.1 \
     && ldconfig /usr/local/lib \
     && convert --version
 
-COPY ./requriements.txt /code/requriements.txt
+COPY ./requirements.txt /code/requirements.txt
 
-RUN pip install --no-cache-dir --upgrade -r /code/requriements.txt
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
 
 RUN useradd -m -u 1000 user
