@@ -173,11 +173,13 @@ def latex2bbox_color(input_arg):
     
     try:
         latex = latex.replace("\n", " ")
+        latex = latex.replace("\%", "<PERCENTAGETOKEN>")
         ret, new_latex = tokenize_latex(latex, middle_file=os.path.join(temp_dir, basename+'.txt'))
         if not(ret and new_latex):
             log = f"ERROR, Tokenize latex failed: {basename}."
             logging.info(log)
             new_latex = latex
+        new_latex = new_latex.replace("< P E R C E N T A G E T O K E N >", "\%")
         latex = normalize_latex(new_latex)
         token_list = []
         l_split = latex.strip().split(' ')
