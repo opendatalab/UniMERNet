@@ -101,6 +101,23 @@ sudo apt-get install texlive-full
 pip install -r requirements.txt
 ```
 
+## 通过docker部署
+
+如果安装上述的环境有问题，也可以通过docker来安装，步骤如下：
+
+- build docker image
+
+```
+docker build -f DockerFile -t cdm:latest .
+```
+构建镜像的过程可能比较长，如果最后终端出现`Successfully tagged cdm:latest`，说明镜像构建成功。
+
+- start a container
+
+```
+docker run -it cdm bash
+```
+此时启动了容器并进入bash环境，可以进行CDM的评测。如果在启动的时候希望建立映射，可以加入参数：`-v xxx:xxx`，这样退出容器后，评测的结果还保存在宿主机。
 
 ## 使用CDM
 

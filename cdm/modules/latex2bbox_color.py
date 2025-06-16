@@ -1,5 +1,6 @@
 import os
 import re
+import cv2
 import json
 import shutil
 import logging
@@ -69,6 +70,33 @@ formular_template = r"""
 \end{document}
 """
 
+formular_template_zh = r"""
+\documentclass[12pt]{article}
+\usepackage[landscape]{geometry}
+\usepackage{geometry}
+\geometry{a<PaperSize>paper,scale=0.98}
+\pagestyle{empty}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{upgreek}
+\usepackage{CJK}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\begin{document}
+\makeatletter
+\renewcommand*{\@textcolor}[3]{%%
+  \protect\leavevmode
+  \begingroup
+    \color#1{#2}#3%%
+  \endgroup
+}
+\makeatother
+\begin{CJK}{UTF8}{gkai}
+%s
+\end{CJK}
+\end{document}
+"""
+
 
 def run_cmd(cmd, timeout_sec=30):
     proc = subprocess.Popen(cmd, shell=True)
@@ -101,37 +129,41 @@ def crop_image(image_path, pad=8):
         
     img = Image.open(image_path).convert("RGB").crop((x_min-pad, y_min-pad, x_max+pad, y_max+pad))
     img.save(image_path)
-    
+
 def extrac_bbox_from_color_image(image_path, color_list):
-    img = Image.open(image_path).convert("RGB")
-    W, H = img.size
-    pixels = list(img.getdata())
-    
+    img = cv2.imread(image_path)
     bbox_list = []
     for target_color in color_list:
-        target_pixels = [ i for i, pixel in enumerate(pixels)if pixel == target_color ]
-        x_list = []
-        y_list = []
-        for idx in target_pixels:
-            x_list.append(idx % W)
-            y_list.append(idx // W)
-        try:
-            y_min, y_max, x_min, x_max = min(y_list), max(y_list), min(x_list), max(x_list)
-            bbox_list.append([x_min-1, y_min-1, x_max+1, y_max+1])
-
-        except:
+        r, g, b = target_color
+        target_rgb = np.array([b, g, r], dtype=np.uint8)
+        mask = np.all(img == target_rgb, axis=2)
+        coords = np.argwhere(mask)
+        if coords.size > 0:
+            x_min, y_min = coords[:, 1].min(), coords[:, 0].min()
+            x_max, y_max = coords[:, 1].max(), coords[:, 0].max()
+            bbox_list.append([int(x_min-1), int(y_min-1), int(x_max+1), int(y_max+1)])
+        else:
             bbox_list.append([])
-            continue
-        
-    img = img.convert("L")
+
+    img = Image.open(image_path).convert("RGB").convert("L")
     img_bw = img.point(lambda x: 255 if x == 255 else 0, '1')
-    img_bw.convert("RGB").save(image_path) 
+    img_bw.convert("RGB").save(image_path)
     return bbox_list
 
+def contains_chinese(text):
+    # 匹配中文字符的正则表达式范围
+    return re.search(r'[\u4e00-\u9fff]', text) is not None
 
 def latex2bbox_color(input_arg):
     latex, basename, output_path, temp_dir, total_color_list = input_arg
-    template = tabular_template if "tabular" in latex else formular_template
+    if "tabular" in latex:
+        template = tabular_template
+    else:
+        if contains_chinese(latex):
+            template = formular_template_zh
+            latex = latex.replace("，", ", ").replace("：", ": ").replace("；", "; ")
+        else:
+            template = formular_template
     output_bbox_path = os.path.join(output_path, 'bbox', basename+'.jsonl')
     output_vis_path = os.path.join(output_path, 'vis', basename+'.png')
     output_base_path = os.path.join(output_path, 'vis', basename+'_base.png')
@@ -140,11 +172,14 @@ def latex2bbox_color(input_arg):
         return
     
     try:
+        latex = latex.replace("\n", " ")
+        latex = latex.replace("\%", "<PERCENTAGETOKEN>")
         ret, new_latex = tokenize_latex(latex, middle_file=os.path.join(temp_dir, basename+'.txt'))
         if not(ret and new_latex):
             log = f"ERROR, Tokenize latex failed: {basename}."
             logging.info(log)
             new_latex = latex
+        new_latex = new_latex.replace("< P E R C E N T A G E T O K E N >", "\%")
         latex = normalize_latex(new_latex)
         token_list = []
         l_split = latex.strip().split(' ')
@@ -164,7 +199,7 @@ def latex2bbox_color(input_arg):
             paper_size = 4
         else:
             paper_size = 5
-        final_latex = formular_template.replace("<PaperSize>", str(paper_size)) % rgb_latex
+        final_latex = template.replace("<PaperSize>", str(paper_size)) % rgb_latex
         
     except Exception as e:
         log = f"ERROR, Preprocess latex failed: {basename}; {e}."
@@ -198,18 +233,21 @@ def latex2bbox_color(input_arg):
         vis = Image.open(output_base_path)
         draw = ImageDraw.Draw(vis)
 
-        with open(output_bbox_path, 'w') as f:
+        with open(output_bbox_path, 'w', encoding='utf-8') as f:
             for token, box in zip(token_list, bbox_list):
                 item = {
                     "bbox": box,
                     "token": token
                 }
-                f.write(json.dumps(item)+'\n')
+                f.write(json.dumps(item, ensure_ascii=False)+'\n')
 
                 if not box:
                     continue
                 x_min, y_min, x_max, y_max = box
                 draw.rectangle([x_min, y_min, x_max, y_max], fill=None, outline=(0,250,0), width=1)
-                draw.text((x_min, y_min), token, (250,0,0))
+                try:
+                    draw.text((x_min, y_min), token, (250,0,0))
+                except:
+                    pass
             
         vis.save(output_vis_path)

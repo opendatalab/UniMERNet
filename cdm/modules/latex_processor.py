@@ -8,14 +8,14 @@ from PIL import Image
 
 
 SKIP_PATTERNS = [r'\{', r'\}', r'[\[\]]', r'\\begin\{.*?\}', r'\\end\{.*?\}', r'\^', r'\_', r'\\.*rule.*', r'\\.*line.*', r'\[[\-.0-9]+[epm][xtm]\]']
-SKIP_Tokens = ['\\', '\\\\', '\\index', '\\a', '&', '$', '\\multirow', '\\def', '\\raggedright', '\\url', '\\cr', '\\ensuremath', '\\left', '\\right', 
-               '\\mathchoice', '\\scriptstyle', '\\displaystyle', '\\qquad', '\\quad', '\\,', '\\!', '~', '\\boldmath']
-PHANTOM_Tokens = ['\\fontfamily', '\\vphantom', '\\phantom', '\\rowcolor', '\\ref']
+SKIP_Tokens = ['\\', '\\\\', '\\index', '\\a', '&', '$', '\\multirow', '\\def', '\\edef', '\\raggedright', '\\url', '\\cr', '\\ensuremath', '\\left', '\\right', 
+               '\\mathchoice', '\\scriptstyle', '\\displaystyle', '\\qquad', '\\quad', '\\,', '\\!', '~', '\\boldmath', '\\gdef', '\\today', '\\the']
+PHANTOM_Tokens = ['\\fontfamily', '\\vphantom', '\\phantom', '\\rowcolor', '\\ref', '\\thesubequation', '\\global', '\\theboldgroup']
 TWO_Tail_Tokens = ['\\frac', '\\binom']
 AB_Tail_Tokens = ['\\xrightarrow', '\\xleftarrow', '\\sqrt']        # special token \xxx [] {} 
 TWO_Tail_Invisb_Tokens = ['\\overset', '\\underset', '\\stackrel']
 ONE_Tail_Tokens = ['\\widetilde', '\\overline', '\\hat', '\\widehat', '\\tilde', '\\Tilde', '\\dot', '\\bar', '\\vec', '\\underline', '\\underbrace', '\\check',
-                   '\\breve', '\\Bar', '\\Vec', '\\mathring', '\\ddot']
+                   '\\breve', '\\Bar', '\\Vec', '\\mathring', '\\ddot', '\\Ddot', '\\dddot', '\\ddddot']
 ONE_Tail_Invisb_Tokens = ['\\boldsymbol', '\\pmb', '\\textbf', '\\mathrm', '\\mathbf', '\\mathbb', '\\mathcal', '\\textmd', '\\texttt', '\\textnormal', 
                           '\\text', '\\textit', '\\textup', '\\mathop', '\\mathbin', '\\smash', '\\operatorname', '\\textrm', '\\mathfrak', '\\emph',
                           '\\textsf', '\\textsc']
@@ -150,29 +150,74 @@ def normalize_latex(l, rm_trail=False):
     for bef, aft in zip(old_token, new_token):
         l = l.replace(bef, aft)
     
-    # TODO token such \not= should be one token
-    pattern = r'\\not [<>+=\-]'
-    old_token = re.findall(pattern, l, re.DOTALL)
-    new_token = [item.replace(" ", "") for item in old_token]
-    for bef, aft in zip(old_token, new_token):
-        l = l.replace(bef, aft)
+    # # TODO token such \not= should be one token
+    # pattern = r'\\not [<>+=\-]'
+    # old_token = re.findall(pattern, l, re.DOTALL)
+    # new_token = [item.replace(" ", "") for item in old_token]
+    # for bef, aft in zip(old_token, new_token):
+    #     l = l.replace(bef, aft)
+    
+    # # TODO \not xx shoudle be combined as one token
+    # pattern = r'\\not [\\=\<\>][^ ]+ '
+    # old_token = re.findall(pattern, l, re.DOTALL)
+    # new_token = [item.replace(" ", "") for item in old_token]
+    # for bef, aft in zip(old_token, new_token):
+    #     l = l.replace(bef, aft+" ")
         
     # TODO tokens such as \dots \exp \sinh, split them to parts, so the bbox match will be easier.
     
     l = " "+l+" "
-    l = l.replace(" \\ldots ", " . . . ")
-    l = l.replace(" \\cdots ", " . . . ")
-    l = l.replace(" \\dots ", " . . . ")
-    l = l.replace(" \\dotsb ", " . . . ")
-    l = l.replace(" \\log ", " \\mathrm { l o g } ")
-    l = l.replace(" \\exp ", " \\mathrm { e x p } ")
-    l = l.replace(" \\sin ", " \\mathrm { s i n } ")
-    l = l.replace(" \\cos ", " \\mathrm { c o s } ")
-    l = l.replace(" \\tan ", " \\mathrm { t a n } ")
-    l = l.replace(" \\tanh ", " \\mathrm { t a n h } ")
-    l = l.replace(" \\cosh ", " \\mathrm { c o s h } ")
-    l = l.replace(" \\sinh ", " \\mathrm { s i n h } ")
-        
+    l = re.sub(r'(?<=\s)--(?=\s)', r'- -', l)
+    l = re.sub(r'(?<=\s)---(?=\s)', r'- - -', l)
+    l = re.sub(r'(?<=\s)…(?=\s)', r'. . .', l)
+    l = re.sub(r'(?<=\s)\\ldots(?=\s)', r'. . .', l)
+    l = re.sub(r'(?<=\s)\\hdots(?=\s)', r'. . .', l)
+    l = re.sub(r'(?<=\s)\\cdots(?=\s)', r'. . .', l)
+    l = re.sub(r'(?<=\s)\\dddot(?=\s)', r'. . .', l)
+    l = re.sub(r'(?<=\s)\\dots(?=\s)', r'. . .', l)
+    l = re.sub(r'(?<=\s)\\dotsc(?=\s)', r'. . .', l)
+    l = re.sub(r'(?<=\s)\\dotsi(?=\s)', r'. . .', l)
+    l = re.sub(r'(?<=\s)\\dotsm(?=\s)', r'. . .', l)
+    l = re.sub(r'(?<=\s)\\dotso(?=\s)', r'. . .', l)
+    l = re.sub(r'(?<=\s)\\dotsb(?=\s)', r'. . .', l)
+    l = re.sub(r'(?<=\s)\\mathellipsis(?=\s)', r'. . .', l)
+    l = re.sub(r'(?<=\s)\\ex(?=\s)', r'\\mathrm { e x }', l)
+    l = re.sub(r'(?<=\s)\\ln(?=\s)', r'\\mathrm { l n }', l)
+    l = re.sub(r'(?<=\s)\\lg(?=\s)', r'\\mathrm { l g }', l)
+    l = re.sub(r'(?<=\s)\\cot(?=\s)', r'\\mathrm { c o t }', l)
+    l = re.sub(r'(?<=\s)\\mod(?=\s)', r'\\mathrm { m o d }', l)
+    l = re.sub(r'(?<=\s)\\bmod(?=\s)', r'\\mathrm { m o d }', l)
+    l = re.sub(r'(?<=\s)\\pmod(?=\s)', r'\\mathrm { m o d }', l)  # \pmod 其实和mod不一样，但是不太好处理，暂时替换为\mod
+    l = re.sub(r'(?<=\s)\\min(?=\s)', r'\\mathrm { m i n }', l) 
+    l = re.sub(r'(?<=\s)\\max(?=\s)', r'\\mathrm { m a x }', l) 
+    l = re.sub(r'(?<=\s)\\ker(?=\s)', r'\\mathrm { k e r }', l) 
+    l = re.sub(r'(?<=\s)\\hom(?=\s)', r'\\mathrm { h o m }', l)
+    l = re.sub(r'(?<=\s)\\sec(?=\s)', r'\\mathrm { s e c }', l)
+    l = re.sub(r'(?<=\s)\\scs(?=\s)', r'\\mathrm { s c s }', l)
+    l = re.sub(r'(?<=\s)\\csc(?=\s)', r'\\mathrm { c s c }', l)
+    l = re.sub(r'(?<=\s)\\deg(?=\s)', r'\\mathrm { d e g }', l)
+    l = re.sub(r'(?<=\s)\\arg(?=\s)', r'\\mathrm { a r g }', l)
+    l = re.sub(r'(?<=\s)\\log(?=\s)', r'\\mathrm { l o g }', l)
+    l = re.sub(r'(?<=\s)\\dim(?=\s)', r'\\mathrm { d i m }', l)
+    l = re.sub(r'(?<=\s)\\exp(?=\s)', r'\\mathrm { e x p }', l)
+    l = re.sub(r'(?<=\s)\\sin(?=\s)', r'\\mathrm { s i n }', l)
+    l = re.sub(r'(?<=\s)\\cos(?=\s)', r'\\mathrm { c o s }', l)
+    l = re.sub(r'(?<=\s)\\tan(?=\s)', r'\\mathrm { t a n }', l)
+    l = re.sub(r'(?<=\s)\\tanh(?=\s)', r'\\mathrm { t a n h }', l)
+    l = re.sub(r'(?<=\s)\\cosh(?=\s)', r'\\mathrm { c o s h }', l)
+    l = re.sub(r'(?<=\s)\\sinh(?=\s)', r'\\mathrm { s i n h }', l)
+    l = re.sub(r'(?<=\s)\\coth(?=\s)', r'\\mathrm { c o t h }', l)
+    l = re.sub(r'(?<=\s)\\arcsin(?=\s)', r'\\mathrm { a r c s i n }', l)
+    l = re.sub(r'(?<=\s)\\arccos(?=\s)', r'\\mathrm { a r c c o s }', l)
+    l = re.sub(r'(?<=\s)\\arctan(?=\s)', r'\\mathrm { a r c t a n }', l)
+    
+    # ** token such as \string xxx should be one token
+    pattern = r'\\string [^ ]+ '
+    old_token = re.findall(pattern, l, re.DOTALL)
+    new_token = [item.replace(" ", "") for item in old_token]
+    for bef, aft in zip(old_token, new_token):
+        l = l.replace(bef, aft+" ")
+    
     # ** token such as \big( should be one token
     pattern = r'\\[Bb]ig[g]?[glrm]? [(){}|\[\]] '
     old_token = re.findall(pattern, l, re.DOTALL)
@@ -235,12 +280,12 @@ def normalize_latex(l, rm_trail=False):
     for bef, aft in zip(old_token, new_token):
         l = l.replace(bef, "{ "+aft[1:-1]+" }")
         
-    # ** \not xx shoudle be combined as one token
-    pattern = r'\\not [\\=\<\>][^ ]+ '
+    # ** \rule{1pt}{2pt} lines, shoudle be combined as one token and do not render
+    pattern = r'\\rule {[ .0-9a-z]+} {[ .0-9a-z]+}'
     old_token = re.findall(pattern, l, re.DOTALL)
     new_token = [item.replace(" ", "") for item in old_token]
     for bef, aft in zip(old_token, new_token):
-        l = l.replace(bef, aft+" ")
+        l = l.replace(bef, aft)
         
     # ** \specialrule{1pt}{2pt}{2pt}, special lines, shoudle be combined as one token
     pattern = r'\\specialrule {[ .0-9a-z]+} {[ .0-9a-z]+} {[ .0-9a-z]+}'

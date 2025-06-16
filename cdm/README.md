@@ -41,8 +41,6 @@ Try CDM on our online demo: [(Hugging Face)🤗](https://huggingface.co/spaces/o
 
 Given CDM's complex environment dependencies, we recommend trying it on Linux systems.
 
-## prepare environment
-
 Nodejs, imagemagic, pdflatex are requried packages when render pdf files and convert them to images, here are installation guides.
 
 ### step.1 install nodejs
@@ -94,6 +92,22 @@ sudo apt-get install texlive-full
 pip install -r requirements.txt
 ```
 
+## install by docker
+
+you can also install CDM by docker:
+
+- build docker image
+
+```
+docker build -f DockerFile -t cdm:latest .
+```
+The process of building the image may take some time. If the terminal finally shows `Successfully tagged cdm:latest`, it indicates that the image has been built successfully.
+- start a container
+
+```
+docker run -it cdm bash
+```
+At this point, the container has been started and the bash environment has been entered, allowing for the evaluation of CDM. If you want to establish a mapping when starting, you can add the parameter: `-v xxx:xxx`, so that the evaluation results are still saved on the host machine after exiting the container.
 
 ## Use CDM Locally
 
