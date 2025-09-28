@@ -16,6 +16,7 @@
 欢迎来到 UniMERNet 的官方仓库，这是一个将数学表达式图像转换为 LaTeX 的解决方案，适用于各种真实世界场景。
 
 ## 新闻 🚀🚀🚀
+**2025.09.28** 🎉🎉  CDM 支持并优化了中文公式的渲染。  
 **2025.03.25** 🎉🎉  <font color="red">公式识别新指标[CDM](https://arxiv.org/abs/2409.03643) 论文已被CVPR 2025接收，欢迎大家使用。</font>     
 **2024.09.06** 🎉🎉  UniMERNet 版本更新，训练代码开源，新版本模型更小，速度更快。具体见最新版本论文[UniMERNet](https://arxiv.org/abs/2404.15254)。  
 **2024.09.06** 🎉🎉  提出公式识别新指标[CDM](https://github.com/opendatalab/UniMERNet/tree/main/cdm)，相比于BLEU/EditDistance，CDM评测得分更加直观，准确，可以公平对比不同模型性能，不受公式多样性表达影响。  

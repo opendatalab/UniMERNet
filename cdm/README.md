@@ -30,6 +30,18 @@ The algorithm flow of CDM is as follows:
 CDM's character matching method based on rendered images provides more intuitive results and is not affected by the diversity of formula representations.
 
 
+# Changelog
+
+- 2025/09/28
+  - Fix some chinese formula issues.
+
+- 2025/06/09
+  - Fix a bug in bbox match process.
+  - Update some parameters.
+
+- 2025/06/05
+  - Support chinese formula evaluation.
+  - Upgrade process speed.
 
 # Usage
 
