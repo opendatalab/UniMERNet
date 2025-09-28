@@ -92,7 +92,9 @@ formular_template_zh = r"""
 }
 \makeatother
 \begin{CJK}{UTF8}{gkai}
+\begin{displaymath}
 %s
+\end{displaymath}
 \end{CJK}
 \end{document}
 """
@@ -154,6 +156,26 @@ def contains_chinese(text):
     # 匹配中文字符的正则表达式范围
     return re.search(r'[\u4e00-\u9fff]', text) is not None
 
+def wrap_chinese_in_text(latex_text):
+    chinese_pattern = r'[\u4e00-\u9fff\u3400-\u4dbf]'
+    # 匹配连续的中文字符
+    chinese_sequence_pattern = chinese_pattern + '+'
+    def replace_chinese(match):
+        chinese_text = match.group(0)
+        # 检查是否已经被\text{}包裹
+        start_pos = match.start()
+        end_pos = match.end()
+        # 检查匹配位置前后是否有\text{和}
+        before_text = latex_text[max(0, start_pos-6):start_pos]
+        after_text = latex_text[end_pos:min(len(latex_text), end_pos+1)]
+        if before_text.endswith('\\text{') and after_text.startswith('}'):
+            return chinese_text
+        else:
+            return f'\\text{{{chinese_text}}}'
+    # 替换所有连续的中文字符
+    result = re.sub(chinese_sequence_pattern, replace_chinese, latex_text)
+    return result
+    
 def latex2bbox_color(input_arg):
     latex, basename, output_path, temp_dir, total_color_list = input_arg
     if "tabular" in latex:
@@ -162,6 +184,7 @@ def latex2bbox_color(input_arg):
         if contains_chinese(latex):
             template = formular_template_zh
             latex = latex.replace("，", ", ").replace("：", ": ").replace("；", "; ")
+            latex = wrap_chinese_in_text(latex)
         else:
             template = formular_template
     output_bbox_path = os.path.join(output_path, 'bbox', basename+'.jsonl')
@@ -179,6 +202,8 @@ def latex2bbox_color(input_arg):
             log = f"ERROR, Tokenize latex failed: {basename}."
             logging.info(log)
             new_latex = latex
+        if contains_chinese(new_latex):
+            new_latex = new_latex.replace("\\mathrm", "\\text")
         new_latex = new_latex.replace("< P E R C E N T A G E T O K E N >", "\%")
         latex = normalize_latex(new_latex)
         token_list = []
