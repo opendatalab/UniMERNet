@@ -35,6 +35,7 @@ def gen_color_list(num=10, gap=15):
         color_list.append((R*gap, G*gap, B*gap))
     return color_list[1:]
 
+
 def update_inliers(ori_inliers, sub_inliers):
     inliers = np.copy(ori_inliers)
     sub_idx = -1
@@ -138,7 +139,8 @@ def evaluation(data_root, user_id="test"):
             for i in range(max_iter):
                 if src[inliers==False].shape[0] <= min_samples:
                     break
-                model, inliers_1 = ransac((src[inliers==False], dst[inliers==False]), SimpleAffineTransform, min_samples=min_samples, residual_threshold=residual_threshold, max_trials=max_trials, random_state=42)
+                # model, inliers_1 = ransac((src[inliers==False], dst[inliers==False]), SimpleAffineTransform, min_samples=min_samples, residual_threshold=residual_threshold, max_trials=max_trials, random_state=42)
+                model, inliers_1 = ransac((src[inliers==False], dst[inliers==False]), SimpleAffineTransform, min_samples=min_samples, residual_threshold=residual_threshold, max_trials=max_trials)
                 if inliers_1 is not None and inliers_1.any():
                     inliers = update_inliers(inliers, inliers_1)
                 else:
@@ -220,7 +222,7 @@ def evaluation(data_root, user_id="test"):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input', '-i', type=str, default="assets/example/input_example.json")
+    parser.add_argument('--input', '-i', type=str, default="/nvme/zengweijun/UniMERNet/unimernet.json")
     parser.add_argument('--output', '-o', type=str, default="output")
     parser.add_argument('--pools', '-p', type=int, default=240)
     args = parser.parse_args()
