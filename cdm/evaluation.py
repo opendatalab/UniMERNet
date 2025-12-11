@@ -59,165 +59,169 @@ def reshape_inliers(ori_inliers, sub_inliers):
     return inliers
 
 def gen_token_order(box_list):
+    import copy 
     new_box_list = copy.deepcopy(box_list)
     for idx, box in enumerate(new_box_list):
         new_box_list[idx]['order'] = idx / len(new_box_list)
     return new_box_list
 
-def evaluation(data_root, user_id="test"):
-    data_root = os.path.join(data_root, user_id)
-    gt_box_dir = os.path.join(data_root, "gt")
-    pred_box_dir = os.path.join(data_root, "pred")
-    match_vis_dir = os.path.join(data_root, "vis_match")
-    os.makedirs(match_vis_dir, exist_ok=True)
-    
-    max_iter = 5
-    min_samples = 2
-    residual_threshold = 20
-    max_trials = 50
-    
-    metrics_per_img = {}
-    gt_basename_list = [item.split(".")[0] for item in os.listdir(os.path.join(gt_box_dir, 'bbox'))]
-    for basename in tqdm(gt_basename_list):
-        gt_valid, pred_valid = True, True
-        if not os.path.exists(os.path.join(gt_box_dir, 'bbox', basename+".jsonl")):
-            gt_valid = False
-        else:
-            with open(os.path.join(gt_box_dir, 'bbox', basename+".jsonl"), 'r') as f:
-                box_gt = []
-                for line in f:
-                    info = json.loads(line)
-                    if info['bbox']:
-                        box_gt.append(info)
-            if not box_gt:
-                gt_valid = False
-        if not gt_valid:
-            continue
-        
-        if not os.path.exists(os.path.join(pred_box_dir, 'bbox', basename+".jsonl")):
-            pred_valid = False
-        else:
-            with open(os.path.join(pred_box_dir, 'bbox', basename+".jsonl"), 'r') as f:
-                box_pred = []
-                for line in f:
-                    info = json.loads(line)
-                    if info['bbox']:
-                        box_pred.append(info)
-            if not box_pred:
-                pred_valid = False
-        if not pred_valid:
-            metrics_per_img[basename] = {
-                "recall": 0,
-                "precision": 0,
-                "F1_score": 0,
-            }
-            continue       
-        gt_img_path = os.path.join(gt_box_dir, 'vis', basename+"_base.png")
-        pred_img_path = os.path.join(pred_box_dir, 'vis', basename+"_base.png")
-        
-        img_gt = Image.open(gt_img_path)
-        img_pred = Image.open(pred_img_path)
-        
-        matcher = HungarianMatcher()
-        matched_idxes = matcher(box_gt, box_pred, img_gt.size, img_pred.size)
-        src = []
-        dst = []
-        for (idx1, idx2) in matched_idxes:
-            x1min, y1min, x1max, y1max = box_gt[idx1]['bbox']
-            x2min, y2min, x2max, y2max = box_pred[idx2]['bbox']
-            x1_c, y1_c = float((x1min+x1max)/2), float((y1min+y1max)/2)
-            x2_c, y2_c = float((x2min+x2max)/2), float((y2min+y2max)/2)
-            src.append([y1_c, x1_c])
-            dst.append([y2_c, x2_c])
-            
-        src = np.array(src)
-        dst = np.array(dst)
-        if src.shape[0] <= min_samples:
-            inliers = np.array([True for _ in matched_idxes])
-        else:
-            inliers = np.array([False for _ in matched_idxes])
-            for i in range(max_iter):
-                if src[inliers==False].shape[0] <= min_samples:
-                    break
-                # model, inliers_1 = ransac((src[inliers==False], dst[inliers==False]), SimpleAffineTransform, min_samples=min_samples, residual_threshold=residual_threshold, max_trials=max_trials, random_state=42)
-                model, inliers_1 = ransac((src[inliers==False], dst[inliers==False]), SimpleAffineTransform, min_samples=min_samples, residual_threshold=residual_threshold, max_trials=max_trials)
-                if inliers_1 is not None and inliers_1.any():
-                    inliers = update_inliers(inliers, inliers_1)
-                else:
-                    break
-                if len(inliers[inliers==True]) >= len(matched_idxes):
-                    break
+def evaluation(data_root , user_id = "test" , num_workers = 10) : 
+    data_root = os.path.join(data_root , user_id) 
+    gt_box_dir = os.path.join(data_root , "gt") 
+    pred_box_dir = os.path.join(data_root , "pred") 
+    match_vis_dir = os.path.join(data_root , "vis_match")
+    os.makedirs(match_vis_dir , exist_ok = True) 
 
-        for idx, (a,b) in enumerate(matched_idxes):
-            if inliers[idx] == True and matcher.cost['token'][a, b] == 1:
-                inliers[idx] = False
-        
-        final_match_num = len(inliers[inliers==True])
-        recall = round(final_match_num/(len(box_gt)), 3)
-        precision = round(final_match_num/(len(box_pred)), 3)
-        F1_score = round(2*final_match_num/(len(box_gt)+len(box_pred)), 3)
-        metrics_per_img[basename] = {
-            "recall": recall,
-            "precision": precision,
-            "F1_score": F1_score,
-        }
-        
-        if True:
-            gap = 5
-            W1, H1 = img_gt.size
-            W2, H2 = img_pred.size
-            H = H1 + H2 + gap
-            W = max(W1, W2)
+    max_iter = 5 
+    min_samples = 2 
+    residual_threshold = 20 
+    max_trials = 50 
 
-            vis_img = Image.new('RGB', (W, H), (255, 255, 255))
-            vis_img.paste(img_gt, (0, 0))
-            vis_img.paste(Image.new('RGB', (W, gap), (120, 120, 120)), (0, H1))
-            vis_img.paste(img_pred, (0, H1+gap))
-            
-            match_img = vis_img.copy()
-            match_draw = ImageDraw.Draw(match_img)
+    metrics_per_img = {} 
+    gt_basename_list = [item.split(".")[0] for item in os.listdir(os.path.join(gt_box_dir , 'bbox'))]
 
-            gt_matched_idx = {
-                a: flag
-                for (a,b), flag in 
-                zip(matched_idxes, inliers)
-            }
-            pred_matched_idx = {
-                b: flag
-                for (a,b), flag in 
-                zip(matched_idxes, inliers)
-            }
-            
-            for idx, box in enumerate(box_gt):
-                if idx in gt_matched_idx and gt_matched_idx[idx]==True:
-                    color = "green"
-                else:
-                    color = "red"
-                x_min, y_min, x_max, y_max = box['bbox']
-                match_draw.rectangle([x_min-1, y_min-1, x_max+1, y_max+1], fill=None, outline=color, width=2)
-                
-            for idx, box in enumerate(box_pred):
-                if idx in pred_matched_idx and pred_matched_idx[idx]==True:
-                    color = "green"
-                else:
-                    color = "red"
-                x_min, y_min, x_max, y_max = box['bbox']
-                match_draw.rectangle([x_min-1, y_min-1+H1+gap, x_max+1, y_max+1+H1+gap], fill=None, outline=color, width=2)
-            
-            vis_img.save(os.path.join(match_vis_dir, basename+"_base.png"))
-            match_img.save(os.path.join(match_vis_dir, basename+".png"))
-            
-    score_list = [val['F1_score'] for _, val in metrics_per_img.items()]
-    exp_list = [1 if score==1 else 0 for score in score_list]
-    metrics_res = {
-        "mean_score": round(np.mean(score_list), 3),
-        "exp_rate": round(np.mean(exp_list), 3),
-        "details": metrics_per_img
+
+    process_args = [ 
+        (basename , gt_box_dir , pred_box_dir , match_vis_dir , max_iter , min_samples , residual_threshold , max_trials)
+        for basename in gt_basename_list 
+    ]
+
+    if num_workers > 1 : 
+        print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), "using processpool, pool num:", num_workers, ", job num:", len(process_args))
+        with Pool(num_workers) as pool : 
+            results = list(tqdm(pool.imap(process_single_image , process_args) , total = len(process_args) , desc = "evaluation"))
+    else : 
+        results = [process_single_image(args) for args in tqdm(process_args , desc = "evaluation")]
+
+    for result in results : 
+        if result is None : 
+            continue 
+        basename , metrics , _= result 
+        metrics_per_img[basename] = metrics 
+
+    score_list = [val['F1_score'] for _,val in metrics_per_img.items()] 
+    exp_list = [1 if score == 1 else 0 for score in score_list]
+    metrics_res = { 
+        "mean_score" : round(np.mean(score_list) , 3) , 
+        "exp_rate" : round(np.mean(exp_list) , 3) , 
+        "details" : metrics_per_img
     }
-    metric_res_path = os.path.join(data_root, "metrics_res.json")
-    with open(metric_res_path, "w") as f:
-        f.write(json.dumps(metrics_res, indent=2))
-    return metrics_res, metric_res_path, match_vis_dir
+    metric_res_path = os.path.join(data_root , "metrics_res.json")
+    with open(metric_res_path , "w") as f : 
+        f.write(json.dumps(metrics_res , indent = 2))
+    return metrics_res , metric_res_path , match_vis_dir 
+
+def process_single_image(args) : 
+    basename , gt_box_dir , pred_box_dir , match_vis_dir , max_iter , min_samples , residual_threshold , max_trials = args 
+    gt_valid , pred_valid = True , True 
+    if not os.path.exists(os.path.join(gt_box_dir , 'bbox' , basename + ".jsonl")) : 
+        gt_valid = False 
+    else : 
+        with open(os.path.join(gt_box_dir , 'bbox' , basename + ".jsonl") , 'r') as f : 
+            box_gt = []
+            for line in f : 
+                info = json.loads(line)
+                if info['bbox'] : 
+                    box_gt.append(info)
+        if not box_gt : 
+            gt_valid = False 
+    if not gt_valid : 
+        return None 
+
+    if not os.path.exists(os.path.join(pred_box_dir , 'bbox' , basename + ".jsonl")):
+        pred_valid = False 
+    else : 
+        with open(os.path.join(pred_box_dir , 'bbox' , basename + ".jsonl") , 'r') as f : 
+            box_pred = []
+            for line in f : 
+                info = json.loads(line)
+                if info['bbox'] : 
+                    box_pred.append(info)
+        if not box_pred : 
+            pred_valid = False 
+    if not pred_valid : 
+        return (basename , { "recall" : 0 , "precision" : 0 , "F1_score" : 0 } , None)
+
+    gt_img_path = os.path.join(gt_box_dir , 'vis' , basename + "_base.png")
+    pred_img_path = os.path.join(pred_box_dir , 'vis' , basename + "_base.png")
+    img_gt = Image.open(gt_img_path)
+    img_pred = Image.open(pred_img_path)
+    matcher = HungarianMatcher()
+    matched_idxes = matcher(box_gt, box_pred, img_gt.size, img_pred.size)
+    src = []
+    dst = []
+    for (idx1, idx2) in matched_idxes : 
+        x1min, y1min, x1max, y1max = box_gt[idx1]['bbox']
+        x2min, y2min, x2max, y2max = box_pred[idx2]['bbox']
+        x1_c, y1_c = float((x1min+x1max)/2), float((y1min+y1max)/2)
+        x2_c, y2_c = float((x2min+x2max)/2), float((y2min+y2max)/2)
+        src.append([y1_c, x1_c])
+        dst.append([y2_c, x2_c])
+    src = np.array(src)
+    dst = np.array(dst)
+    if src.shape[0] <= min_samples : 
+        inliers = np.array([True for _ in matched_idxes])
+    else : 
+        inliers = np.array([False for _ in matched_idxes])
+        for i in range(max_iter) : 
+            if src[inliers==False].shape[0] <= min_samples : 
+                break
+            model, inliers_1 = ransac((src[inliers==False], dst[inliers==False]), SimpleAffineTransform, min_samples=min_samples, residual_threshold=residual_threshold, max_trials=max_trials)
+            if inliers_1 is not None and inliers_1.any() : 
+                inliers = update_inliers(inliers, inliers_1)
+            else : 
+                break
+            if len(inliers[inliers==True]) >= len(matched_idxes) : 
+                break
+    for idx, (a,b) in enumerate(matched_idxes) : 
+        if inliers[idx] == True and matcher.cost['token'][a, b] == 1 : 
+            inliers[idx] = False
+    final_match_num = len(inliers[inliers==True])
+    recall = round(final_match_num/(len(box_gt)), 3)
+    precision = round(final_match_num/(len(box_pred)), 3)
+    F1_score = round(2*final_match_num/(len(box_gt)+len(box_pred)), 3)
+    metrics_per_img = {
+        "recall" : recall , 
+        "precision" : precision , 
+        "F1_score" : F1_score 
+    }
+    if True : 
+        gap = 5 
+        W1, H1 = img_gt.size 
+        W2, H2 = img_pred.size 
+        H = H1 + H2 + gap 
+        W = max(W1, W2) 
+        vis_img = Image.new('RGB', (W, H), (255, 255, 255)) 
+        vis_img.paste(img_gt, (0, 0)) 
+        vis_img.paste(Image.new('RGB', (W, gap), (120, 120, 120)), (0, H1)) 
+        vis_img.paste(img_pred, (0, H1+gap)) 
+        match_img = vis_img.copy() 
+        match_draw = ImageDraw.Draw(match_img) 
+        gt_matched_idx = { 
+            a : flag 
+            for (a,b), flag in zip(matched_idxes, inliers) 
+        }
+        pred_matched_idx = { 
+            b : flag 
+            for (a,b), flag in zip(matched_idxes, inliers) 
+        }
+        for idx, box in enumerate(box_gt) : 
+            if idx in gt_matched_idx and gt_matched_idx[idx] == True : 
+                color = "green" 
+            else : 
+                color = "red" 
+            x_min, y_min, x_max, y_max = box['bbox'] 
+            match_draw.rectangle([x_min-1, y_min-1, x_max+1, y_max+1], fill=None, outline=color, width=2) 
+        for idx, box in enumerate(box_pred) : 
+            if idx in pred_matched_idx and pred_matched_idx[idx] == True : 
+                color = "green" 
+            else : 
+                color = "red" 
+            x_min, y_min, x_max, y_max = box['bbox'] 
+            match_draw.rectangle([x_min-1, y_min-1+H1+gap, x_max+1, y_max+1+H1+gap], fill=None, outline=color, width=2) 
+        vis_img.save(os.path.join(match_vis_dir, basename+"_base.png")) 
+        match_img.save(os.path.join(match_vis_dir, basename+".png")) 
+    return (basename , metrics_per_img , None) 
 
 
 if __name__ == '__main__':
@@ -265,17 +269,18 @@ if __name__ == '__main__':
             basename = img_ids[idx]
             input_arg = latex, basename, output_path, sub_temp_dir, total_color_list
             input_args.append(input_arg)
-    
     if pool_num > 1:
         print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), "using processpool, pool num:", pool_num, ", job num:", len(input_args))
-        myP = Pool(args.pools)
-        for input_arg in input_args:
-            myP.apply_async(latex2bbox_color, args=(input_arg,))
-        myP.close()
-        myP.join()
+        with Pool(args.pools) as pool:
+            results = list(tqdm(
+                pool.imap(latex2bbox_color, input_args),
+                total=len(input_args),
+                desc="latex2bbox_color",
+                unit="task"
+            ))
     else:
-        for input_arg in input_args:
-            latex2bbox_color(input_arg)
+        results = [latex2bbox_color(arg) for arg in tqdm(input_args, desc="latex2bbox_color", unit="task")]
+
     b = time.time()
     print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), "extract bbox done, time cost:", round(b-a, 3), "s")
     
@@ -283,7 +288,7 @@ if __name__ == '__main__':
         shutil.rmtree(os.path.join(temp_dir, f"{exp_name}_{subset}"))
     
     c = time.time()
-    metrics_res, metric_res_path, match_vis_dir = evaluation(args.output, exp_name)
+    metrics_res, metric_res_path, match_vis_dir = evaluation(args.output, exp_name, num_workers=240)
     d = time.time()
     print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), "calculate metrics done, time cost:", round(d-c, 3), "s")
     
