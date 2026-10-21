@@ -46,9 +46,14 @@ class ImageProcessor:
         pred = output["pred_str"][0]
         print(f'Prediction:\n{pred}')
 
-        cv2.imshow('Original Image', open_cv_image)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        if os.environ.get('DISPLAY'):
+            cv2.imshow('Original Image', open_cv_image)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
+        else:
+            out_path = os.path.join(os.path.dirname(image_path), os.path.splitext(os.path.basename(image_path))[0] + '_out.png')
+            cv2.imwrite(out_path, open_cv_image)
+            print(f'No display detected; saved original image to: {out_path}')
 
         return pred
 
